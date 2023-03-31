@@ -6,11 +6,11 @@ public class Conection {
     
     protected final String url, username, password;
 
-    public Conection() {
+    public Conection(String url, String username, String password) {
         //TODO configurar como variables de entorno
-        url = "jdbc:mysql://localhost:3306/DTAPROYECT";
-        username = "root";
-        password = "PCTdkx58";
+        this.url = url ;//"jdbc:mysql://localhost:3306/DTAPROYECT";
+        this.username = username; //"root";
+        this.password = password; //"PCTdkx58";
     }
 
     /**
