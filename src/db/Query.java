@@ -1,6 +1,13 @@
 package db;
 import java.util.*;
 
+
+/**
+ * @Author
+ * Juan Loaiza
+ * @implNote
+ * Query interfaces to know wich sequencial structures must be implemented on project
+ */
 public interface Query {
     String query = null;
     String table = null;
@@ -14,22 +21,22 @@ public interface Query {
     void getOne(int id);
     /**
      * Insert a new element into a table
-     * @param LinkedList<Object> data
+     * @param data LinkedList<Object> 
      */
     void insert(LinkedList<Object> data);
     /**
      * Insert a batch of new elements into a table
-     * @param LinkedList<Object[]> data
+     * @param data LinkedList <Object[]> 
      */
     void batchInsert(LinkedList<Object[]> data);
     /**
      * Update an element in a table
-     * @param String[] data
+     * @param data String[] 
      */
     void update(String[] data);
     /**
      * Delete an element in a table
-     * @param int id
+     * @param id int
      */
     void deleteOne(int id);
     /**

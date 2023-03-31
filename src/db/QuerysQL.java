@@ -3,11 +3,23 @@ package db;
 import java.sql.Connection;
 import java.util.LinkedList;
 
+/**
+ * @Author
+ * Juan Loaiza
+ * @implNote
+ * Class that implements the Query interface and helps throught the connection to the database  
+ */
 public class QuerysQL extends Conection implements Query {
     
     private String query, table;
     private Connection conn;
-
+    
+    /**
+     * Constructor
+     * @param url db url
+     * @param username username on the db, default is root
+     * @param password password on the db, default is author one
+     */
     QuerysQL(String url, String username, String password){
         super(url, username, password);
         conn = this.conectionGetter();
