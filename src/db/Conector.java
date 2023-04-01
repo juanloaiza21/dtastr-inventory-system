@@ -175,8 +175,17 @@ public class Conector implements Query {
 
     @Override
     public void deleteOne(int id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteOne'");
+        PreparedStatement instruction;
+        query = "DELETE FROM " + table + " WHERE id = ?;";
+        try {
+            instruction = conn.prepareStatement(query);
+            instruction.setInt(1, id);
+            int result = instruction.executeUpdate();
+            if(result>0)System.out.println("Succesfully deleted");
+            if (result<=0) throw new Exception("Error inserting");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
@@ -206,6 +215,11 @@ public class Conector implements Query {
             data.add("UpdateJuan");
             con.connect();
             con.update(data, dataTest, 54);
+            con.getOne(54);
+            */
+            /*Delete test
+            con.connect();
+            con.deleteOne(54);
             con.getOne(54);
             */
         } catch (Exception e) {
