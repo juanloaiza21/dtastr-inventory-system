@@ -3,27 +3,45 @@ import java.util.*;
 
 
 /**
+ * Query interfaces to know wich sequencial structures must be implemented on project
  * @Author
  * Juan Loaiza
- * @implNote
- * Query interfaces to know wich sequencial structures must be implemented on project
+ * @implNote This class has as default the table you set on constructor, it will change on functions params just for that one instance
  */
 public interface Query {
     String query = null;
     String table = null;
     /**
      * Get all data in a table throught the console
+     * @implNote This method has as default the table you set on constructor
      */
     void getAll();
+
+    /**
+     * Set a new table as default
+     * @param table
+     */
+    void setTable(String table);
+
     /**
      * Get one element in a table throught the console
+     * @param id int. The id you are watching for
+     * @implNote This method has as default the table you set on constructor
      */
     void getOne(int id);
+
     /**
-     * Insert a new element into a table
+     * Get one element in a table throught the console
+     * @param id int. The id you are watching for
+     * @param table String. Another table, this will not set default table
+     */
+    void getOne(int id, String table);
+
+    /**
+     * Insert a new element into a table JUST ONE
      * @param data LinkedList<Object> 
      */
-    void insert(LinkedList<Object> data);
+    void insert(LinkedList<Object> data, String[] insertFields);
     /**
      * Insert a batch of new elements into a table
      * @param data LinkedList <Object[]> 
