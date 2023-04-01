@@ -62,7 +62,7 @@ public class Conector implements Query {
            if (table == "USERS") {
                 userParse(result);
            } else if(table == "PRODUCTS"){
-                //TODO parse PRODUCTS
+                productParse(result);
            } 
            else {
                 System.out.println("No data");
@@ -86,7 +86,7 @@ public class Conector implements Query {
             if (table == "USERS") {
                 userParse(result);
             } else if(table == "PRODUCTS"){
-                //TODO parse PRODUCTS
+                productParse(result);
             } 
             else {
                 System.out.println("No data");
@@ -109,7 +109,7 @@ public class Conector implements Query {
             if (table == "USERS") {
                 userParse(result);
             } else if(table == "PRODUCTS"){
-                //TODO parse PRODUCTS
+                productParse(result);
             } 
             else {
                 System.out.println("No data");
@@ -190,8 +190,16 @@ public class Conector implements Query {
 
     @Override
     public void deleteAll() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteAll'");
+        PreparedStatement instruction;
+        query = "DELETE FROM " + table + ";";
+        try {
+            instruction = conn.prepareStatement(query);
+            int result = instruction.executeUpdate();
+            if(result>0)System.out.println("Succesfully deleted");
+            if (result<=0) throw new Exception("Error inserting");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public static void main(String[] args) {
@@ -222,11 +230,29 @@ public class Conector implements Query {
             con.deleteOne(54);
             con.getOne(54);
             */
+            /*Delete all test 
+            con.connect();
+            con.deleteAll();
+            con.getAll();
+            */
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
     }
 
+    /**
+     * Parses the result of the query
+     * @param result
+     */
+    private void productParse(ResultSet result){
+        //TODO parse PRODUCTS as userParse
+        throw new UnsupportedOperationException("Unimplemented method 'batchInsert'");
+    } 
+
+    /**
+     * Parses the result of the query
+     * @param result
+     */
     private void userParse(ResultSet result) {
         try {
             while (result.next()) {
