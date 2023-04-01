@@ -124,7 +124,7 @@ public class Conector implements Query {
     public void insert(LinkedList<Object> data, String[] insertFields) {
         PreparedStatement instruction;
         int result;
-        queryGen(insertFields);
+        queryGen("INSERT INTO ", insertFields);
         try {
             instruction = conn.prepareStatement(query);
             for (int i = 0; i < data.size(); i++) {
@@ -151,9 +151,26 @@ public class Conector implements Query {
     }
 
     @Override
-    public void update(String[] data) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+    public void update(LinkedList<Object> data, String[] updateFields, int id) {
+        PreparedStatement instruction;
+        int result;
+        queryGenUpdate("UPDATE ", updateFields);
+        try {
+            instruction = conn.prepareStatement(query);
+            for (int i = 0; i < data.size() + 1; i++) {
+                if(i+1 == data.size()+1) {
+                    instruction.setInt(i+1, (int) id);
+                } else {
+                    instruction.setString(i+1, (String) data.get(i));
+                }
+            }
+            result = instruction.executeUpdate();
+            if(result>0)System.out.println("Succesfully updated");
+            if (result<=0) throw new Exception("Error inserting");
+        } catch (Exception e) {
+            // TODO: handle exception
+            System.err.println(e.getMessage());
+        }
     }
 
     @Override
@@ -171,8 +188,8 @@ public class Conector implements Query {
     public static void main(String[] args) {
         Conector con = new Conector("jdbc:mysql://localhost:3306/DTAPROYECT", "root", "PCTdkx58");
         try {
+            /* insert test
             LinkedList<Object> data = new LinkedList<>();
-            /* 
             data.add(54);
             data.add("Juan");
             data.add("juan400reyesloazia@gmail.com");
@@ -181,6 +198,14 @@ public class Conector implements Query {
             data.add("123456");
             con.connect();
             con.insert(data, new String[] {"id", "nombre", "email", "cellphone", "rol", "pass"});
+            con.getOne(54);
+            */
+            /*Update test 
+            LinkedList<Object> data = new LinkedList<>();
+            String[] dataTest = new String[] {"nombre"};
+            data.add("UpdateJuan");
+            con.connect();
+            con.update(data, dataTest, 54);
             con.getOne(54);
             */
         } catch (Exception e) {
@@ -199,7 +224,12 @@ public class Conector implements Query {
         System.out.println("No more data");
     }
 
-    private void queryGen(String[] insertFields){
+    /**
+     * Generates the insert query for the database
+     * @param firstStatement
+     * @param insertFields
+     */
+    private void queryGen(String firstStatement, String[] insertFields){
         StringBuilder fields = new StringBuilder();
         StringBuilder questionMarks = new StringBuilder();
         fields.append("(");
@@ -214,7 +244,24 @@ public class Conector implements Query {
         }
         fields.append(")");
         questionMarks.append(")");
-        query = "INSERT INTO " + table + fields.toString() + " VALUES " + questionMarks.toString() + ";";
+        query = firstStatement + table + fields.toString() + " VALUES " + questionMarks.toString() + ";";
+    }
+
+    /**
+     * Generates the update query for the database
+     * @param firstStatement
+     * @param insertFields
+     * @param id
+     */
+    private void queryGenUpdate(String firstStatement, String[] insertFields){
+        StringBuilder fields = new StringBuilder();
+        for (int i = 0; i < insertFields.length; i++) {
+            fields.append(insertFields[i]+" = ?");
+            if (i != insertFields.length - 1) {
+                fields.append(", ");
+            }
+        }
+        query = firstStatement +table + " SET "+ fields.toString() +" WHERE id=?"+ ";";
     }
 
 }

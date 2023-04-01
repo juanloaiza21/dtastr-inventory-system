@@ -40,6 +40,8 @@ public interface Query {
     /**
      * Insert a new element into a table JUST ONE
      * @param data LinkedList<Object> 
+     * @param insertFields String[] 
+     * @implNote first data on linked list must be the int id of the entity
      */
     void insert(LinkedList<Object> data, String[] insertFields);
     /**
@@ -51,7 +53,7 @@ public interface Query {
      * Update an element in a table
      * @param data String[] 
      */
-    void update(String[] data);
+    void update(LinkedList<Object> data, String[] updateFields, int id);
     /**
      * Delete an element in a table
      * @param id int
