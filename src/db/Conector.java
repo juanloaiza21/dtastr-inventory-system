@@ -20,7 +20,7 @@ public class Conector implements Query {
      * @param username username on the db, default is root
      * @param password password on the db, default is author one
      */
-    Conector(String url, String username, String password) {
+    public Conector(String url, String username, String password) {
         //TODO configurar como variables de entorno
         this.url = url ;//"jdbc:mysql://localhost:3306/DTAPROYECT";
         this.username = username; //"root";
@@ -92,7 +92,6 @@ public class Conector implements Query {
                 System.out.println("No data");
             }
         } catch (Exception e) {
-            // TODO: handle exception
             System.err.println(e.getMessage());
         }
     }
@@ -115,7 +114,6 @@ public class Conector implements Query {
                 System.out.println("No data");
             }
         } catch (Exception e) {
-            // TODO: handle exception
             System.err.println(e.getMessage());
         }
     }
@@ -138,7 +136,6 @@ public class Conector implements Query {
             if(result>0)System.out.println("Succesfully inserted");
             if (result<=0) throw new Exception("Error inserting");
         } catch (Exception e) {
-            // TODO: handle exception
             System.err.println(e.getMessage());
         }
 
@@ -168,7 +165,6 @@ public class Conector implements Query {
             if(result>0)System.out.println("Succesfully updated");
             if (result<=0) throw new Exception("Error inserting");
         } catch (Exception e) {
-            // TODO: handle exception
             System.err.println(e.getMessage());
         }
     }

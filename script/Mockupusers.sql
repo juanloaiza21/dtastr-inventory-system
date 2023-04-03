@@ -1,4 +1,5 @@
 USE DTAPROYECT;
+SELECT * FROM USERS;
 INSERT INTO USERS (id, nombre, email, cellphone, rol, pass)  VALUES 
 (1, 'Luisa Garcia', 'luisagarcia@gmail.com', '555-1234', 'user', '123456'),
 (2, 'Pedro Martinez', 'pedromartinez@hotmail.com', '555-5678', 'user', 'abc123'),
@@ -50,5 +51,3 @@ INSERT INTO USERS (id, nombre, email, cellphone, rol, pass)  VALUES
 (48, 'Emmanuel Torres', 'emmanueltorres@yahoo.com', '555-0123', 'user', '1234abcd'),
 (49, 'Ariel Flores', 'arielflores@gmail.com', '555-4567', 'seller', 'qwerty123'),
 (50, 'Elena Perez', 'elenaperez@yahoo.com', '555-8901', 'user', 'password123');
-
-SELECT * FROM USERS;

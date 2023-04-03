@@ -11,6 +11,7 @@ import java.util.*;
 public interface Query {
     String query = null;
     String table = null;
+    public static final int UNIQUE_CONSTRAINT_VIOLATED = 1062;
     /**
      * Get all data in a table throught the console
      * @implNote This method has as default the table you set on constructor

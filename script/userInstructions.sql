@@ -1,9 +1,10 @@
 USE DTAPROYECT;
+DROP TABLE USERS;
 CREATE TABLE USERS 
 (
 id int primary key not null,
 nombre varchar (255) not null,
-email varchar (255) not null,
+email varchar (255) not null unique,
 cellphone varchar (20) not null,
 rol enum("seller", "user") NOT NULL,
 pass VARCHAR(255) NOT NULL,
