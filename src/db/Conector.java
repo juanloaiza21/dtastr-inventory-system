@@ -198,43 +198,7 @@ public class Conector implements Query {
         }
     }
 
-    public static void main(String[] args) {
-        Conector con = new Conector("jdbc:mysql://localhost:3306/DTAPROYECT", "root", "PCTdkx58");
-        try {
-            /* insert test
-            LinkedList<Object> data = new LinkedList<>();
-            data.add(54);
-            data.add("Juan");
-            data.add("juan400reyesloazia@gmail.com");
-            data.add("555-1234");
-            data.add("user");
-            data.add("123456");
-            con.connect();
-            con.insert(data, new String[] {"id", "nombre", "email", "cellphone", "rol", "pass"});
-            con.getOne(54);
-            */
-            /*Update test 
-            LinkedList<Object> data = new LinkedList<>();
-            String[] dataTest = new String[] {"nombre"};
-            data.add("UpdateJuan");
-            con.connect();
-            con.update(data, dataTest, 54);
-            con.getOne(54);
-            */
-            /*Delete test
-            con.connect();
-            con.deleteOne(54);
-            con.getOne(54);
-            */
-            /*Delete all test 
-            con.connect();
-            con.deleteAll();
-            con.getAll();
-            */
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
-        }
-    }
+
 
     /**
      * Parses the result of the query
