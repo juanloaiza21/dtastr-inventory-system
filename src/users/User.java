@@ -13,7 +13,7 @@ public class User extends Users {
         super();
     }
 
-    private Boolean login(String email, String password) throws SQLException {
+    public Boolean login(String email, String password) throws SQLException {
         this.password = password;
         conector.connect();
         String hasedPass = conector.getOne("pass", email, "email");
