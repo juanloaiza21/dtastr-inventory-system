@@ -13,6 +13,14 @@ public class User extends Users {
         super();
     }
 
+    private Boolean login(String email, String password) throws SQLException {
+        this.password = password;
+        conector.connect();
+        String hasedPass = conector.getOne("pass", email, "email");
+        passwordCrypt();
+        return this.password.equals(hasedPass);
+    }
+
     private void updateFieldscheck()throws IllegalStateException{
         if(updateFields == null) throw new IllegalStateException("You must set the fields you want to update");
         for (int i = 0; i < updateFields.length; i++) {
@@ -75,27 +83,6 @@ public class User extends Users {
             conector.getOne(id);
         } catch (Exception e) {
             System.err.println(e.getMessage());
-        }
-    }
-
-    public static void main(String[] args) {
-        User user = new User();
-        try {
-            user.getAllUsers();
-            /* 
-            System.out.println("::::::::::::::::::::::::::::Creacion usuario ID 1::::::::::::::::::::::::::::::::::::");
-            user.createUser(new String[]{"1","Juan", "juan400reyesloaiza@gmail.com", "123456789", "SELLER", "123456"});
-            user.getOneUser(1);
-            System.out.println("::::::::::::::::::::Creacion usuario ID 2 mismo correo:::::::::::::::::::::::::::::::");
-            user.createUser(new String[]{"2","Juan", "juan400reyesloaiza@gmail.com", "123456789", "SELLER", "123456"});
-            user.getOneUser(2);
-            System.out.println("::::::::::::::::::::::::::::Creacion usuario ID 3 y update usuario 1::::::::::::::::::::::::::::::::::::");
-            user.createUser(new String[]{"3","Juan", "joumanmaster_@outlook.es", "123456789", "SELLER", "123456"});
-            user.updateUser(new String[]{"1","JuanUpdate", "joumanmaaster_@outlook.es", "123456789", "123456"} , new String[]{"nombre", "email", "cellphone", "pass"});
-            user.getAllUsers();
-            */
-        } catch (SQLException e) {
-            System.err.println(e.getMessage()); 
         }
     }
 }

@@ -97,6 +97,26 @@ public class Conector implements Query {
     }
 
     @Override
+    public String getOne(String field, String value, String fieldResult){
+        String data = null;
+        query = "SELECT "+ field+ " FROM";
+        PreparedStatement instruction;
+        ResultSet result;
+        try {
+            instruction = conn.prepareStatement(query + " " + table + " WHERE "+fieldResult+" = ?;");
+            instruction.setString(1, value);
+            result = instruction.executeQuery();
+            if(result.next()){
+                data = result.getString(field);
+            }
+        } catch (Exception e) {
+            // TODO: handle exception
+            System.err.println(e.getMessage());
+        }
+        return data;
+    };
+
+    @Override
     public void getOne(int id, String table) {
         query = "SELECT * FROM ";
         PreparedStatement instruction;

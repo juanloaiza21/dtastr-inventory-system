@@ -33,6 +33,14 @@ public interface Query {
 
     /**
      * Get one element in a table throught the console
+     * @param field string. The field you are looking for
+     * @value value. The value on filtering
+     * @implNote This method has as default the table you set on constructor
+     */
+    String getOne(String fieldFilter, String value, String fieldResult);
+
+    /**
+     * Get one element in a table throught the console
      * @param id int. The id you are watching for
      * @param table String. Another table, this will not set default table
      */
