@@ -28,7 +28,7 @@ public abstract class Users {
         }, 
         ROL_TWO{
             public String toString() {
-                return "BUYER";
+                return "USER";
             }
         }
     }
@@ -114,9 +114,17 @@ public abstract class Users {
     /**
      * Convert data to LinkedList and the update it on db
      * @param data String[]. The data you want to insert.
+     * @param fields String[]. The fields you want to update
      * @implNote The first element of the array must be an integer on string, last element must be the password
      */
     public void updateUser(String[] data, String[] fields) {}
+
+    /**
+     * Convert data to LinkedList and the update it on db
+     * @param data String[]. The data you want to insert.
+     * @implNote The first element of the array must be an integer on string, last element must be the password
+     */
+    public void updateUser(String[] data, String[] fields, Boolean password) {}
 
     /**
      * Delete one user

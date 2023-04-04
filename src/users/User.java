@@ -53,7 +53,7 @@ public class User extends Users {
     public void createUser(String[] data) {
         try {
             if(!validatorId(data)) throw new IllegalStateException("The id must be an integer, example: '1'");
-            if(!roleValidator(data[4])) throw new IllegalStateException("The role must be 'SELLER' or 'BUYER'");
+            if(!roleValidator(data[4])) throw new IllegalStateException("The role must be 'SELLER' or 'USER'");
             password = data[5];
             passwordCrypt();
             data[5] = password;
@@ -72,9 +72,28 @@ public class User extends Users {
         try {
             if(!validatorId(data)) throw new IllegalStateException("The id must be an integer, example: '1'");
             updateFieldscheck();
-            password = data[data.length-1];
-            passwordCrypt();
             data[data.length-1] = password;
+            LinkedList<Object> user = userConverter(data);
+            conector.connect();
+            id = (int)user.get(0);
+            user.remove(0);
+            conector.update(user, updateFields, id);
+            conector.getOne(id);
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
+    @Override
+    public void updateUser(String[] data, String[] fields, Boolean password) {
+        updateFields = fields;
+        int id =0;
+        try {
+            if(!validatorId(data)) throw new IllegalStateException("The id must be an integer, example: '1'");
+            updateFieldscheck();
+            this.password = data[data.length-1];
+            passwordCrypt();
+            data[data.length-1] = this.password;
             LinkedList<Object> user = userConverter(data);
             conector.connect();
             id = (int)user.get(0);
