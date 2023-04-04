@@ -17,6 +17,8 @@ public class Item {
         this.stock = stock;
 
     }
+    
+    //getters and setters
 
     public String getName() {
         return name;
@@ -49,6 +51,7 @@ public class Item {
     public void setStock(int stock) {
         this.stock = stock;
     }
+    
     //get an item from the linked list
     public static Item getItem(LinkedList<Item> list, String name) {
         for (Item item : list) {
