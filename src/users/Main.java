@@ -9,7 +9,7 @@ import java.util.*;
  */
 public class Main {
     
-    Users user;
+    User user;
 
     Main(){
         user = new User();
@@ -18,7 +18,7 @@ public class Main {
     /**
      * Create an user
      */
-    private void createUser(){
+    public void createUser(){
         Scanner sc = new Scanner(System.in);
         String[] data = new String[6];
         System.out.println("Enter the id of the user ");
@@ -44,18 +44,16 @@ public class Main {
         sc.nextLine();
         System.out.println("Enter the password of the user ");
         data[5] = sc.nextLine();
-        sc.close();
         user.createUser(data);
     }
 
     /**
      * Get an user
      */
-    private void getUser(){
+    public void getUser(){
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter the id of the user ");
         int id = sc.nextInt();
-        sc.close();
         try {
            user.getOneUser(id);
         } catch (Exception e) {
@@ -65,6 +63,7 @@ public class Main {
 
     /**
      * Update an user
+     * @implNote Create an implementation if its necesary
      */
     private void updateUser() {
         Scanner sc = new Scanner(System.in);
@@ -74,43 +73,56 @@ public class Main {
     /**
      * Update the password of an user
      */
-    private void updatePass(){
+    public void updatePass(){
+        String[] data = new String[2];
         Scanner sc = new Scanner(System.in);
-        System.out.println("Enter the id of the user ");
+        System.out.println("Enter the email of the user ");
+        String email = sc.nextLine();
+        try {
+            data[0] = user.getByEmail(email);
+            System.out.println("Enter the new password ");
+            data[1] = sc.nextLine();
+            user.updateUser(data, true);
+        } catch (NumberFormatException | SQLException e) {
+            // TODO Auto-generated catch block
+            System.err.println(e.getMessage());
+        }
     }
 
     /*
      * Bool that represents the login an user
     */
-    private Boolean login() {
+    public Boolean login() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter the email of the user ");
+        String email = sc.nextLine();
+        System.out.println("Enter the password of the user ");
+        String password = sc.nextLine();
+        try {
+            return user.login(email, password);
+        } catch (Exception e) {
+            System.err.println("The email or password are incorrect");
+            return false;
+        }
     }
 
 
     /**
      * Delete an user
+     * @throws SQLException
      */
-    private void deleteUser() {
+    public void deleteUser() throws SQLException {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter the id of the user ");
+        user.deleteUser(sc.nextInt());
     }
 
     /**
      * Get all users
      * @throws SQLException
      */
-    private void getAll() throws SQLException{
+    public void getAll() throws SQLException{
         user.getAllUsers(); 
     }
 
-
-    public static void main(String[] args) throws SQLException {
-        Main main = new Main();
-        /* 
-        main.createUser();
-        main.getUser();
-        */
-        main.getAll();
-    }
 }

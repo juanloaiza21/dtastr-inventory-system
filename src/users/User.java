@@ -21,6 +21,12 @@ public class User extends Users {
         return this.password.equals(hasedPass);
     }
 
+    public String getByEmail(String email) throws SQLException {
+        conector.connect();
+        return conector.getOne("id", email, "email");
+    }
+
+
     private void updateFieldscheck()throws IllegalStateException{
         if(updateFields == null) throw new IllegalStateException("You must set the fields you want to update");
         for (int i = 0; i < updateFields.length; i++) {
@@ -85,8 +91,8 @@ public class User extends Users {
     }
 
     @Override
-    public void updateUser(String[] data, String[] fields, Boolean password) {
-        updateFields = fields;
+    public void updateUser(String[] data, Boolean password) {
+        updateFields = new String[]{"pass"};
         int id =0;
         try {
             if(!validatorId(data)) throw new IllegalStateException("The id must be an integer, example: '1'");

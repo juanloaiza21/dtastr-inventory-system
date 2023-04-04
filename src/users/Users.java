@@ -124,7 +124,7 @@ public abstract class Users {
      * @param data String[]. The data you want to insert.
      * @implNote The first element of the array must be an integer on string, last element must be the password
      */
-    public void updateUser(String[] data, String[] fields, Boolean password) {}
+    public void updateUser(String[] data,  Boolean password) {}
 
     /**
      * Delete one user
