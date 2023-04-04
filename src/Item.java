@@ -69,7 +69,7 @@ public class Item {
         ResultSet result = statement.executeQuery(query);
 
         LinkedList<Item> itemsList = new LinkedList<>();
-        while (result.next()) { // result.next() = true while there are more items,
+        while (result.next()) { 
 
             // to create an object "Item" with the data and add it to the list
             int id = result.getInt("id"); // "id" or 1
