@@ -3,27 +3,28 @@ package Selling;
 import java.sql.*;
 import java.util.*;
 /**
-*@author john pastor
-*SellItems class
-
-**/
+ * @author john pastor
+ * Class SellItems 
+ */
 
 public class SellItems {
-    public static void main(String[] args) {
-        Scanner scan = new Scanner(System.in);
+    private String url, user, password;
+    private Connection connection;
 
-        // Connect to DataBase
-        String url = "jdbc:mysql://localhost:3306/DTAPROYECT";
-        String user = "root";
-        String password = "alejo2425";
-        Connection connection = null;
+    public void Selling() {
+
+        Scanner scan = new Scanner(System.in);
+        url = "jdbc:mysql://localhost:3306/DTAPROYECT";
+        user = "root";
+        password = "alejo2425";
+        connection = null;
 
         try {
             connection = DriverManager.getConnection(url, user, password);
-            LinkedList<Item> itemsList = Item.getItems(connection); // insert items into a linkedlist
+            LinkedList<Item> itemsList = Item.getItems(connection);
 
             System.out.println("Which item do u wanna buy: ");
-            String name = scan.next().toLowerCase();
+            String name = scan.nextLine();
             System.out.println("How many: ");
             int Amount = scan.nextInt();
 
@@ -37,14 +38,14 @@ public class SellItems {
                     updateStock(connection, itemToSell);
                 } else {
                     System.out.println("There are not enough stock! ");
+
                 }
             } else {
-                System.out.println("Item not found!");
+                System.out.println("Item not Found!");
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally { // this closes the connection to the database
+        } finally {
             if (connection != null) {
                 try {
                     connection.close();
@@ -54,17 +55,14 @@ public class SellItems {
             }
         }
         scan.close();
-
     }
 
-    public static void updateStock(Connection connection, Item itemToSell) throws SQLException {
-        // statement for sql to update
-        String updateStock = "UPDATE PRODUCTS SET stock =" + itemToSell.getStock() + " WHERE id =" + itemToSell.getId();
+    private void updateStock(Connection connection, Item itemToSell) throws SQLException {
+        String updStock = "UPDATE PRODUCTS SET stock =" + itemToSell.getStock() + " WHERE id=" + itemToSell.getId();
         Statement updStatement = connection.createStatement();
-        updStatement.executeUpdate(updateStock); // execute the statement
+        updStatement.executeUpdate(updStock);
 
         updStatement.close();
-
     }
 
 }
