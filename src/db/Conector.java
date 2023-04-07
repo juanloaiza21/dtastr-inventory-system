@@ -172,6 +172,26 @@ public class Conector implements Query {
 
     }
 
+    public void insertProduct(String name, double price, int stock) {
+        PreparedStatement instruction;
+        int result;
+        String[] insertFields = { "name", "price", "stock" };
+        queryGen("INSERT INTO ", insertFields);
+        try {
+            instruction = conn.prepareStatement(query);
+            instruction.setString(1, name);
+            instruction.setDouble(2, price);
+            instruction.setInt(3, stock);
+            result = instruction.executeUpdate();
+            if (result > 0)
+                System.out.println("Successfully inserted new product");
+            else
+                throw new Exception("Error inserting new product");
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
     @Override
     public void batchInsert(LinkedList<Object[]> data) {
         // TODO Auto-generated method stub
@@ -226,7 +246,7 @@ public class Conector implements Query {
         }
     }
 
-    public void updateDouble(LinkedList<Double> data, String[] updateFields, int id)  {
+    public void updateDouble(LinkedList<Double> data, String[] updateFields, int id) {
         PreparedStatement instruction;
         int result;
         queryGenUpdate("UPDATE ", updateFields);
