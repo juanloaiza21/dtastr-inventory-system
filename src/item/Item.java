@@ -80,7 +80,7 @@ public class Item {
 
             // to create an object "Item" with the data and add it to the list
             int id = result.getInt("id"); // "id" or 1
-            String name = result.getString("name"); // "name" or 2
+            String name = result.getString("nombre"); // "name" or 2
             double price = result.getDouble("price"); // "price " or 3
             int stock = result.getInt("stock"); // "stock" or 4
 

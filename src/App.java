@@ -1,6 +1,10 @@
 import java.util.*;
 import users.Main;
 
+/**
+ * @author Juan David Loaiza Reyes
+ * @version 0.1
+ */
 public class App {
     
     public static void main(String[] args){
@@ -29,7 +33,6 @@ public class App {
                         else {
                             System.out.print("\033[H\033[2J");
                             System.out.flush();
-                            System.out.println("Welcome to " + main.getTypeUser() + "Module");
                         }
                     break;
                     case 2:

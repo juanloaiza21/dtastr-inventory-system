@@ -175,7 +175,7 @@ public class Conector implements Query {
     public void insertProduct(String name, double price, int stock) {
         PreparedStatement instruction;
         int result;
-        String[] insertFields = { "name", "price", "stock" };
+        String[] insertFields = { "nombre", "price", "stock" };
         queryGen("INSERT INTO ", insertFields);
         try {
             instruction = conn.prepareStatement(query);

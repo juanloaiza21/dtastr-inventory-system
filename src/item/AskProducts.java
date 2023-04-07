@@ -1,19 +1,21 @@
-package Selling;
+package item;
 
 import java.sql.*;
 import java.util.*;
 import db.Conector;
 
 /**
+ * Class AskProducts
  * @author john pastor
- *         Class AskProducts
+ *
  */
 
 public class AskProducts {
     private Conector conector;
 
     public AskProducts() {
-        conector = new Conector("jdbc:mysql://localhost:3306/DTAPROYECT", "root", "alejo2425");
+        //conector = new Conector("jdbc:mysql://localhost:3306/DTAPROYECT", "root", "alejo2425");
+        conector = new Conector("jdbc:mysql://localhost:3306/DTAPROYECT", "root", "PCTdkx58");
         conector.setTable("PRODUCTS");
     }
 
@@ -57,7 +59,7 @@ public class AskProducts {
     public static void main(String[] args) throws SQLException {
         String url = "jdbc:mysql://localhost:3306/DTAPROYECT";
         String user = "root";
-        String password = "alejo2425";
+        String password = "PCTdkx58";
 
         Conector conector = new Conector(url, user, password);
         conector.connect();
