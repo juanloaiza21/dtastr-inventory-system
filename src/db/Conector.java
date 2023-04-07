@@ -225,9 +225,15 @@ public class Conector implements Query {
      * @param result
      */
     private void productParse(ResultSet result){
-        //TODO parse PRODUCTS as userParse
-        throw new UnsupportedOperationException("Unimplemented method 'batchInsert'");
-    } 
+        try {
+            while (result.next()) {
+                System.out.println(result.getInt("id") + ": " + result.getString("nombre") + " " + result.getDouble("precio") + " " + result.getInt("cantidad")+ " " + result.getString("proveedor"));
+            }
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+        System.out.println("No more data");
+    }
 
     /**
      * Parses the result of the query
