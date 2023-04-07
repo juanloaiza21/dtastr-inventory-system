@@ -1,4 +1,4 @@
-package Selling;
+package item;
 
 import java.sql.*;
 import java.util.*;

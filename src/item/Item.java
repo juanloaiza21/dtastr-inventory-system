@@ -1,4 +1,4 @@
-package Selling;
+package item;
 
 /**
  * @author john pastor
