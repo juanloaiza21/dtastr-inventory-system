@@ -1,5 +1,4 @@
 USE DTAPROYECT;
-DROP TABLE USERS;
 CREATE TABLE USERS 
 (
 id int primary key not null,

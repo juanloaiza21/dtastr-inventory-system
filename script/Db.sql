@@ -15,8 +15,10 @@ CREATE TABLE PRODUCTS
 (
 id int primary key not null,
 nombre varchar (255) not null,
-precio DECIMAL (10,2) not null,
-cantidad int not null,
-proveedor varchar (255) not null,
-primary key(id)
+price DECIMAL (10,2) not null,
+quantity int not null,
+shopID int,
+createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+lastUpdate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+FOREIGN KEY (shopID)  references USERS(id)
 );
