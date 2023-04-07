@@ -2,40 +2,42 @@ package Selling;
 
 import java.sql.*;
 import java.util.*;
+import db.Conector;
+
 /**
  * @author john pastor
- * Class SellItems 
+ *         Class SellItems
  */
 
 public class SellItems {
-    private String url, user, password;
-    private Connection connection;
+    private Conector conector;
+
+    public SellItems() {
+        conector = new Conector("jdbc:mysql://localhost:3306/DTAPROYECT", "root", "alejo2425");
+        conector.setTable("PRODUCTS");
+    }
 
     public void Selling() {
 
         Scanner scan = new Scanner(System.in);
-        url = "jdbc:mysql://localhost:3306/DTAPROYECT";
-        user = "root";
-        password = "alejo2425";
-        connection = null;
 
         try {
-            connection = DriverManager.getConnection(url, user, password);
-            LinkedList<Item> itemsList = Item.getItems(connection);
 
+            Item it = new Item(0, null, 0, 0);
+            LinkedList<Item> itemsList = it.getItems();
             System.out.println("Which item do u wanna buy: ");
             String name = scan.nextLine();
             System.out.println("How many: ");
             int Amount = scan.nextInt();
 
-            Item itemToSell = Item.getItem(itemsList, name);
+            Item itemToSell = it.getItem(itemsList, name);
             if (itemToSell != null) {
                 if (itemToSell.getStock() >= Amount) {
                     itemToSell.setStock(itemToSell.getStock() - Amount);
                     System.out.println("Product selled: " + itemToSell.getName());
                     System.out.println("Thanks for your purchase");
 
-                    updateStock(connection, itemToSell);
+                    updateStock(itemToSell);
                 } else {
                     System.out.println("There are not enough stock! ");
 
@@ -45,24 +47,28 @@ public class SellItems {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
         }
         scan.close();
     }
 
-    private void updateStock(Connection connection, Item itemToSell) throws SQLException {
-        String updStock = "UPDATE PRODUCTS SET stock =" + itemToSell.getStock() + " WHERE id=" + itemToSell.getId();
-        Statement updStatement = connection.createStatement();
-        updStatement.executeUpdate(updStock);
-
-        updStatement.close();
+    private void updateStock(Item itemToSell) throws SQLException {
+        conector.connect();
+        LinkedList<Integer> data = new LinkedList<>();
+        data.add(itemToSell.getStock());
+        conector.updateInt(data, new String[] { "stock" }, itemToSell.getId());
     }
+
+    // public static void main(String[] args) throws SQLException {
+    //     String url = "jdbc:mysql://localhost:3306/DTAPROYECT";
+    //     String user = "root";
+    //     String password = "alejo2425";
+
+    //     // SellItems sell = new SellItems();
+    //     // sell.Selling();
+    //     Conector conector = new Conector(url, user, password);
+    //     conector.setTable("PRODUCTS");
+    //     conector.connect();
+    //     conector.getAll();
+    // }
 
 }
