@@ -2,7 +2,6 @@ package db;
 import java.sql.SQLException;
 import java.util.*;
 
-
 /**
  * Query interfaces to know wich sequencial structures must be implemented on project
  * @Author
@@ -13,6 +12,7 @@ public interface Query {
     String query = null;
     String table = null;
     public static final int UNIQUE_CONSTRAINT_VIOLATED = 1062;
+    
     /**
      * Get all data in a table throught the console
      * @implNote This method has as default the table you set on constructor
@@ -54,21 +54,21 @@ public interface Query {
      * @implNote first data on linked list must be the int id of the entity
      */
     void insert(LinkedList<Object> data, String[] insertFields);
+    
     /**
      * Insert a batch of new elements into a table
      * @param data LinkedList <Object[]> 
      */
     void batchInsert(LinkedList<Object[]> data) throws SQLException;
-    /**
-     * Update an element in a table
-     * @param data String[] 
-     */
+
     void update(LinkedList<Object> data, String[] updateFields, int id);
+    
     /**
      * Delete an element in a table
      * @param id int
      */
     void deleteOne(int id);
+    
     /**
      * Delete all elements in a table
      */
