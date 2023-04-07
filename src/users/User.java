@@ -33,7 +33,7 @@ public class User extends Users {
         String hasedPass = conector.getOne("pass", email, "email");
         passwordCrypt();
         logged = this.password.equals(hasedPass);
-        if (conector.getOne("rol", email, "email") == "seller" ) {
+        if (conector.getOne("rol", email, "email").equals("seller") ) {
             typeUser = true;
         } else {
             typeUser = false;

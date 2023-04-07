@@ -53,8 +53,10 @@ public class App {
         
         if (main.getTypeUser()) {
             //TODO seller menu
+            System.out.println("Welcome to seller menu!");
         } else{
             //TODO user menu
+            System.out.println("Welcome to user menu!");
         }
     }
 }
