@@ -19,6 +19,14 @@ public class Main {
         typeUser = user.getTypeUser();
     }
 
+    public Boolean getLogged() {
+        return logged;
+    }
+    
+    public Boolean getTypeUser() {
+        return typeUser;
+    }
+
     /**
      * Create an user
      */
