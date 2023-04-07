@@ -1,6 +1,13 @@
 package Selling;
 
+/**
+ * @author john pastor
+ * Item class implementation
+ */
 import java.util.*;
+
+import db.Conector;
+
 import java.sql.*;
 
 public class Item {
@@ -9,16 +16,16 @@ public class Item {
     private String name;
     private double price;
     private int stock;
+    Conector conector;
 
-    public Item(int id, String name, double price, int stock) {
+    public Item(int id, String name, double price, int stock) throws SQLException {
         this.name = name;
         this.id = id;
         this.price = price;
         this.stock = stock;
-
+        conector = new Conector("jdbc:mysql://localhost:3306/DTAPROYECT", "root", "alejo2425");
+        conector.setTable("PRODUCTS");
     }
-    
-    //getters and setters
 
     public String getName() {
         return name;
@@ -51,9 +58,9 @@ public class Item {
     public void setStock(int stock) {
         this.stock = stock;
     }
-    
-    //get an item from the linked list
-    public static Item getItem(LinkedList<Item> list, String name) {
+
+    // get an item from the linked list
+    public Item getItem(LinkedList<Item> list, String name) {
         for (Item item : list) {
             if (item.getName().equals(name)) {
                 return item;
@@ -62,14 +69,13 @@ public class Item {
         return null;
     }
 
-    // get items from the database
-    public static LinkedList<Item> getItems(Connection connection) throws SQLException {
-        String query = "SELECT * FROM PRODUCTS";
-        Statement statement = connection.createStatement();
-        ResultSet result = statement.executeQuery(query);
+    public LinkedList<Item> getItems() throws SQLException {
+        conector.connect();
+
+        ResultSet result = conector.getAllResultSet();
 
         LinkedList<Item> itemsList = new LinkedList<>();
-        while (result.next()) { 
+        while (result.next()) { // result.next() = true while there are more items,
 
             // to create an object "Item" with the data and add it to the list
             int id = result.getInt("id"); // "id" or 1
@@ -81,9 +87,6 @@ public class Item {
 
         }
         result.close();
-
-        statement.close();
         return itemsList;
     }
-
 }
