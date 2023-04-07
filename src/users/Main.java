@@ -101,16 +101,16 @@ public class Main {
     */
     public Boolean login() {
         try {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Enter the email of the user ");
-        String email = sc.nextLine();
-        System.out.println("Enter the password of the user ");
-        String password = sc.nextLine();
-            return user.login(email, password);
+            Scanner sc = new Scanner(System.in);
+            System.out.println("Enter the email of the user ");
+            String email = sc.nextLine();
+            System.out.println("Enter the password of the user ");
+            String pass = sc.nextLine();
+            user.login(email, pass);
         } catch (Exception e) {
-            System.err.println("The email or password are incorrect");
-            return false;
+            System.err.println(e.getMessage());
         }
+        return user.getLogged();
     }
 
 

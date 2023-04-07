@@ -5,20 +5,34 @@ import java.util.LinkedList;
  * User class implementation  
  * @Author
  * Juan Loaiza
+ * @ImplementationNote TypeUser true = true, false = user
  */
 public class User extends Users {
     
     String password;
+    Boolean logged;
+    Boolean typeUser;
+
     public User() {
         super();
+        logged = false;
     }
 
-    public Boolean login(String email, String password) throws SQLException {
+    public Boolean getLogged() {
+        return logged;
+    }
+
+    public void login(String email, String password) throws SQLException {
         this.password = password;
         conector.connect();
         String hasedPass = conector.getOne("pass", email, "email");
         passwordCrypt();
-        return this.password.equals(hasedPass);
+        logged = this.password.equals(hasedPass);
+        if (conector.getOne("rol", email, "email") == "seller" ) {
+            typeUser = true;
+        } else {
+            typeUser = false;
+        }
     }
 
     public String getByEmail(String email) throws SQLException {
