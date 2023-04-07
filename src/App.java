@@ -1,5 +1,6 @@
 import java.util.*;
 import users.Main;
+import item.*;
 
 /**
  * @author Juan David Loaiza Reyes
@@ -9,6 +10,7 @@ public class App {
     
     public static void main(String[] args){
         Main main = new Main();
+        item.Main iMain = new item.Main();
         Scanner sc = new Scanner(System.in);
         System.out.print("\033[H\033[2J");
         System.out.flush();
@@ -50,13 +52,90 @@ public class App {
                 sc.nextLine();
             } 
         }
-        
+        int selector = 0;
         if (main.getTypeUser()) {
             //TODO seller menu
             System.out.println("Welcome to seller menu!");
+            /*
+             * Add product
+             * update product stock
+             * update product price
+             * delete product
+             */
+            while (true) {
+                sc.nextLine();
+                System.out.println("");
+                System.out.println("1. Add product");
+                System.out.println("2. Update product stock");
+                System.out.println("3. Update product price");
+                System.out.println("4. Delete product");
+                System.out.println("5. Exit");
+                try {
+                    selector = sc.nextInt();
+                    switch (selector) {
+                        case 1:
+                            iMain.addProduct();
+                        break;
+                        case 2:
+                            iMain.uodateProductStock();
+                        break;
+                        case 3:
+                            iMain.updateProductPrice();
+                        break;
+                        case 4:
+                            iMain.deleteProduct();
+                        break;
+                        case 5:
+                            System.exit(0);
+                        break;
+                        default:
+                            System.out.println("Incorrect option: " + sc.nextInt());
+                        break;
+                    }
+                } catch (InputMismatchException e){
+                    System.err.println("The option must be a int");
+                    sc.nextLine();
+                }
+            }
         } else{
             //TODO user menu
             System.out.println("Welcome to user menu!");
+            /*
+             * Buy product
+             * Make a devolution
+             * Ask for a product
+             */
+            while (true) {
+                sc.nextLine();
+                System.out.println("");
+                System.out.println("1. Buy product");
+                System.out.println("2. Make a devolution");
+                System.out.println("3. Ask for a product");
+                System.out.println("4. Exit");
+                try {
+                    selector = sc.nextInt();
+                    switch (selector) {
+                        case 1:
+                            iMain.sellItem();
+                        break;
+                        case 2:
+                            iMain.devolution();
+                        break;
+                        case 3:
+                            iMain.productAsk();
+                        break;
+                        case 4:
+                            System.exit(0);
+                        break;
+                        default:
+                            System.out.println("Incorrect option: " + sc.nextInt());
+                        break;
+                }
+            } catch (InputMismatchException e){
+                System.err.println("The option must be a int");
+                sc.nextLine();
+            }
+            }
         }
     }
 }
