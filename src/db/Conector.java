@@ -1,78 +1,90 @@
 package db;
+
 import java.sql.*;
 import java.util.LinkedList;
 
-
 /**
  * Class that generates the connection to the db
+ * 
  * @author Juan Loaiza
  */
 public class Conector implements Query {
-    
+
     private String query, table;
-    
+
     protected final String url, username, password;
     private Connection conn = null;
 
     /**
      * Constructor
-     * @param url db url
+     * 
+     * @param url      db url
      * @param username username on the db, default is root
      * @param password password on the db, default is author one
      */
     public Conector(String url, String username, String password) {
-        //TODO configurar como variables de entorno
-        this.url = url ;//"jdbc:mysql://localhost:3306/DTAPROYECT";
-        this.username = username; //"root";
-        this.password = password; //"PCTdkx58";
+        // TODO configurar como variables de entorno
+        this.url = url;// "jdbc:mysql://localhost:3306/DTAPROYECT";
+        this.username = username; // "root";
+        this.password = password; // "PCTdkx58";
         table = "USERS";
     }
 
     /**
      * Generates the connection to the db
+     * 
+     * @return
      * @throws SQLException
      */
     public void connect() throws SQLException {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = (Connection) DriverManager.getConnection(url, username, password); 
+            conn = (Connection) DriverManager.getConnection(url, username, password);
             System.out.println("Succesfully connected");
-            
+
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
     }
 
-
-
     @Override
     public void setTable(String table) {
         this.table = table;
     }
-    
-    //TODO parse PRODUCTS
+
+    // TODO parse PRODUCTS
     @Override
     public void getAll() {
         query = "SELECT * FROM ";
         PreparedStatement instruction;
         ResultSet result;
         try {
-           instruction= conn.prepareStatement(query+ " " + table+";");
-           result = instruction.executeQuery();
-           if (table == "USERS") {
+            instruction = conn.prepareStatement(query + " " + table + ";");
+            result = instruction.executeQuery();
+            if (table == "USERS") {
                 userParse(result);
-           } else if(table == "PRODUCTS"){
+            } else if (table == "PRODUCTS") {
                 productParse(result);
-           } 
-           else {
+            } else {
                 System.out.println("No data");
-           }
+            }
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
     }
 
-
+    public ResultSet getAllResultSet() {
+        query = "SELECT * FROM ";
+        PreparedStatement instruction;
+        ResultSet result = null;
+        try {
+            instruction = conn.prepareStatement(query + " " + table + ";");
+            result = instruction.executeQuery();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+        return result;
+    }
 
     @Override
     public void getOne(int id) {
@@ -85,10 +97,9 @@ public class Conector implements Query {
             result = instruction.executeQuery();
             if (table == "USERS") {
                 userParse(result);
-            } else if(table == "PRODUCTS"){
+            } else if (table == "PRODUCTS") {
                 productParse(result);
-            } 
-            else {
+            } else {
                 System.out.println("No data");
             }
         } catch (Exception e) {
@@ -97,16 +108,16 @@ public class Conector implements Query {
     }
 
     @Override
-    public String getOne(String field, String value, String fieldResult){
+    public String getOne(String field, String value, String fieldResult) {
         String data = null;
-        query = "SELECT "+ field+ " FROM";
+        query = "SELECT " + field + " FROM";
         PreparedStatement instruction;
         ResultSet result;
         try {
-            instruction = conn.prepareStatement(query + " " + table + " WHERE "+fieldResult+" = ?;");
+            instruction = conn.prepareStatement(query + " " + table + " WHERE " + fieldResult + " = ?;");
             instruction.setString(1, value);
             result = instruction.executeQuery();
-            if(result.next()){
+            if (result.next()) {
                 data = result.getString(field);
             }
         } catch (Exception e) {
@@ -127,10 +138,9 @@ public class Conector implements Query {
             result = instruction.executeQuery();
             if (table == "USERS") {
                 userParse(result);
-            } else if(table == "PRODUCTS"){
+            } else if (table == "PRODUCTS") {
                 productParse(result);
-            } 
-            else {
+            } else {
                 System.out.println("No data");
             }
         } catch (Exception e) {
@@ -146,15 +156,17 @@ public class Conector implements Query {
         try {
             instruction = conn.prepareStatement(query);
             for (int i = 0; i < data.size(); i++) {
-                if(i == 0) {
-                    instruction.setInt(i+1, (int) data.get(i));
+                if (i == 0) {
+                    instruction.setInt(i + 1, (int) data.get(i));
                 } else {
-                    instruction.setString(i+1, (String) data.get(i));
+                    instruction.setString(i + 1, (String) data.get(i));
                 }
             }
             result = instruction.executeUpdate();
-            if(result>0)System.out.println("Succesfully inserted");
-            if (result<=0) throw new Exception("Error inserting");
+            if (result > 0)
+                System.out.println("Succesfully inserted");
+            if (result <= 0)
+                throw new Exception("Error inserting");
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
@@ -168,22 +180,71 @@ public class Conector implements Query {
     }
 
     @Override
-    public void update(LinkedList<Object> data, String[] updateFields, int id) {
+    public void update(LinkedList<Object> data, String[] updateFields, int id) { // pepe,field to update(name),Item id
         PreparedStatement instruction;
         int result;
         queryGenUpdate("UPDATE ", updateFields);
         try {
             instruction = conn.prepareStatement(query);
             for (int i = 0; i < data.size() + 1; i++) {
-                if(i+1 == data.size()+1) {
-                    instruction.setInt(i+1, (int) id);
+                if (i + 1 == data.size() + 1) {
+                    instruction.setInt(i + 1, (int) id);
                 } else {
-                    instruction.setString(i+1, (String) data.get(i));
+                    instruction.setString(i + 1, (String) data.get(i));
                 }
             }
             result = instruction.executeUpdate();
-            if(result>0)System.out.println("Succesfully updated");
-            if (result<=0) throw new Exception("Error inserting");
+            if (result > 0)
+                System.out.println("Succesfully updated");
+            if (result <= 0)
+                throw new Exception("Error inserting");
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
+    public void updateInt(LinkedList<Integer> data, String[] updateFields, int id) { // pepe,field to update(name),Item
+                                                                                     // id
+        PreparedStatement instruction;
+        int result;
+        queryGenUpdate("UPDATE ", updateFields);
+        try {
+            instruction = conn.prepareStatement(query);
+            for (int i = 0; i < data.size() + 1; i++) {
+                if (i + 1 == data.size() + 1) {
+                    instruction.setInt(i + 1, (int) id);
+                } else {
+                    instruction.setInt(i + 1, (int) data.get(i));
+                }
+            }
+            result = instruction.executeUpdate();
+            if (result > 0)
+                System.out.println("Succesfully updated");
+            if (result <= 0)
+                throw new Exception("Error inserting");
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
+    public void updateDouble(LinkedList<Double> data, String[] updateFields, int id)  {
+        PreparedStatement instruction;
+        int result;
+        queryGenUpdate("UPDATE ", updateFields);
+        try {
+            instruction = conn.prepareStatement(query);
+            for (int i = 0; i < data.size() + 1; i++) {
+                if (i + 1 == data.size() + 1) {
+                    instruction.setInt(i + 1, (int) id);
+                } else {
+                    instruction.setDouble(i + 1, (Double) data.get(i));
+                }
+            }
+            result = instruction.executeUpdate();
+            if (result > 0)
+                System.out.println("Succesfully updated");
+            if (result <= 0)
+                throw new Exception("Error inserting");
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
@@ -197,8 +258,10 @@ public class Conector implements Query {
             instruction = conn.prepareStatement(query);
             instruction.setInt(1, id);
             int result = instruction.executeUpdate();
-            if(result>0)System.out.println("Succesfully deleted");
-            if (result<=0) throw new Exception("Error inserting");
+            if (result > 0)
+                System.out.println("Succesfully deleted");
+            if (result <= 0)
+                throw new Exception("Error inserting");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -211,23 +274,25 @@ public class Conector implements Query {
         try {
             instruction = conn.prepareStatement(query);
             int result = instruction.executeUpdate();
-            if(result>0)System.out.println("Succesfully deleted");
-            if (result<=0) throw new Exception("Error inserting");
+            if (result > 0)
+                System.out.println("Succesfully deleted");
+            if (result <= 0)
+                throw new Exception("Error inserting");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
-
-
     /**
      * Parses the result of the query
+     * 
      * @param result
      */
-    private void productParse(ResultSet result){
+    private void productParse(ResultSet result) {
         try {
             while (result.next()) {
-                System.out.println(result.getInt("id") + ": " + result.getString("nombre") + " " + result.getDouble("precio") + " " + result.getInt("cantidad")+ " " + result.getString("proveedor"));
+                System.out.println(result.getInt("id") + ": " + result.getString("name") + " "
+                        + result.getDouble("price") + " " + result.getInt("stock"));
             }
         } catch (Exception e) {
             System.err.println(e.getMessage());
@@ -237,12 +302,14 @@ public class Conector implements Query {
 
     /**
      * Parses the result of the query
+     * 
      * @param result
      */
     private void userParse(ResultSet result) {
         try {
             while (result.next()) {
-                System.out.println(result.getInt("id") + ": " + result.getString("nombre") + " " + result.getString("email") + " " + result.getString("rol"));
+                System.out.println(result.getInt("id") + ": " + result.getString("nombre") + " "
+                        + result.getString("email") + " " + result.getString("rol"));
             }
         } catch (Exception e) {
             System.err.println(e.getMessage());
@@ -252,10 +319,11 @@ public class Conector implements Query {
 
     /**
      * Generates the insert query for the database
+     * 
      * @param firstStatement
      * @param insertFields
      */
-    private void queryGen(String firstStatement, String[] insertFields){
+    private void queryGen(String firstStatement, String[] insertFields) {
         StringBuilder fields = new StringBuilder();
         StringBuilder questionMarks = new StringBuilder();
         fields.append("(");
@@ -275,19 +343,32 @@ public class Conector implements Query {
 
     /**
      * Generates the update query for the database
+     * 
      * @param firstStatement
      * @param insertFields
      * @param id
      */
-    private void queryGenUpdate(String firstStatement, String[] insertFields){
+    private void queryGenUpdate(String firstStatement, String[] insertFields) {
         StringBuilder fields = new StringBuilder();
         for (int i = 0; i < insertFields.length; i++) {
-            fields.append(insertFields[i]+" = ?");
+            fields.append(insertFields[i] + " = ?");
             if (i != insertFields.length - 1) {
                 fields.append(", ");
             }
         }
-        query = firstStatement +table + " SET "+ fields.toString() +" WHERE id=?"+ ";";
+        query = firstStatement + table + " SET " + fields.toString() + " WHERE id=?" + ";";
+    }
+
+    public ResultSet executeQuery(String sql) throws SQLException {
+        Statement statement = conn.createStatement();
+        ResultSet result = statement.executeQuery(sql);
+        return result;
+    }
+
+    public int executeUpdate(String sql) throws SQLException {
+        Statement statement = conn.createStatement();
+        int result = statement.executeUpdate(sql);
+        return result;
     }
 
 }
