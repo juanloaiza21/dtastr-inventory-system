@@ -10,9 +10,13 @@ import java.util.*;
 public class Main {
     
     User user;
+    Boolean logged;
+    Boolean typeUser;
 
     Main(){
         user = new User();
+        logged = user.getLogged();
+        typeUser = user.getTypeUser();
     }
 
     /**
@@ -40,7 +44,7 @@ public class Main {
             if (aux==1) data[4] = "SELLER";
             else if (aux==2) data[4] = "USER";
             else {
-                System.out.println("The role must be 'SELLER' or 'BUYER'");
+                System.out.println("The role must be 'SELLER' or 'USER'");
             }
             sc.nextLine();
             System.out.println("Enter the password of the user ");
@@ -99,7 +103,7 @@ public class Main {
     /*
      * Bool that represents the login an user
     */
-    public Boolean login() {
+    public void login() {
         try {
             Scanner sc = new Scanner(System.in);
             System.out.println("Enter the email of the user ");
@@ -110,7 +114,8 @@ public class Main {
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
-        return user.getLogged();
+        typeUser = user.getTypeUser();
+        logged = user.getLogged();
     }
 
 

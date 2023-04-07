@@ -21,6 +21,10 @@ public class User extends Users {
     public Boolean getLogged() {
         return logged;
     }
+    
+    public Boolean getTypeUser() {
+        return typeUser;
+    }
 
     public void login(String email, String password) throws SQLException {
         this.password = password;
