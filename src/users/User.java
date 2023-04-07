@@ -5,13 +5,14 @@ import java.util.LinkedList;
  * User class implementation  
  * @Author
  * Juan Loaiza
- * @ImplementationNote TypeUser true = true, false = user
+ * @ImplementationNote TypeUser true = Seller, false = user
  */
 public class User extends Users {
     
     String password;
     Boolean logged;
     Boolean typeUser;
+    int userId;
 
     public User() {
         super();
@@ -21,7 +22,7 @@ public class User extends Users {
     public Boolean getLogged() {
         return logged;
     }
-    
+
     public Boolean getTypeUser() {
         return typeUser;
     }

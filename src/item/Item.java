@@ -23,7 +23,8 @@ public class Item {
         this.id = id;
         this.price = price;
         this.stock = stock;
-        conector = new Conector("jdbc:mysql://localhost:3306/DTAPROYECT", "root", "alejo2425");
+        //conector = new Conector("jdbc:mysql://localhost:3306/DTAPROYECT", "root", "alejo2425");
+        conector = new Conector("jdbc:mysql://localhost:3306/DTAPROYECT", "root", "PCTdkx58");
         conector.setTable("PRODUCTS");
     }
 

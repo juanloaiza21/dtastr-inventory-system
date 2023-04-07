@@ -4,7 +4,7 @@ import java.sql.*;
 import java.util.LinkedList;
 
 /**
- * Class that generates the connection to the db
+ * Class that generates the connection and functionalities on the db
  * 
  * @author Juan Loaiza
  */
@@ -40,7 +40,6 @@ public class Conector implements Query {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             conn = (Connection) DriverManager.getConnection(url, username, password);
-            System.out.println("Succesfully connected");
 
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());

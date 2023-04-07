@@ -13,7 +13,7 @@ public class Main {
     Boolean logged;
     Boolean typeUser;
 
-    Main(){
+    public Main(){
         user = new User();
         logged = user.getLogged();
         typeUser = user.getTypeUser();
@@ -33,13 +33,19 @@ public class Main {
     public void createUser(){
         try {
             Scanner sc = new Scanner(System.in);
+            Boolean validator = true;
             String[] data = new String[6];
             System.out.println("Enter the id of the user ");
-            try {
-                data[0] = Integer.toString(sc.nextInt());
-            } catch (Exception e) {
-                System.err.println("The id must be a number");
+            while (validator) {
+                try {
+                    data[0] = Integer.toString(sc.nextInt());
+                    validator = false;
+                } catch (InputMismatchException e) {
+                    System.err.println("The id must be a number");
+                    sc.nextLine();
+                }
             }
+            validator = true;
             System.out.println("Enter the name of the user ");
             sc.nextLine();
             data[1] = sc.nextLine();
@@ -48,11 +54,16 @@ public class Main {
             System.out.println("Enter the cellphone of the user ");
             data[3] = sc.nextLine();
             System.out.println("Enter 1 if the user its seller, enter 2 if its an normal user");
-            int aux = sc.nextInt();
-            if (aux==1) data[4] = "SELLER";
-            else if (aux==2) data[4] = "USER";
-            else {
-                System.out.println("The role must be 'SELLER' or 'USER'");
+            while (validator) {
+                try {
+                    int aux = sc.nextInt();
+                    if (aux==1) data[4] = "SELLER";
+                    else if (aux==2) data[4] = "USER";
+                    validator = false;
+                } catch (InputMismatchException e) {
+                    System.out.println("Wrong input, must be 1 or 2 ");
+                    sc.nextLine();
+                }
             }
             sc.nextLine();
             System.out.println("Enter the password of the user ");
