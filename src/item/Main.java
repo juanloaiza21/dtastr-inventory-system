@@ -27,22 +27,54 @@ public class Main implements mainInterface {
 
     @Override
     public void updateProductStock() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'uodateProductStock'");
+        Scanner sc = new Scanner(System.in);
+        LinkedList<Integer> data = new LinkedList<>();
+        while (true) {
+            try {
+                System.out.println("Enter the product id to update stock");
+                int id = sc.nextInt();
+                System.out.println("Enter the new stock");
+                data.add(sc.nextInt());
+                conector.connect();
+                conector.updateInt(data, new String[] { "stock" }, id);
+                System.out.println("Updated correctly");
+                break;
+            } catch (InputMismatchException | SQLException e) {
+                System.err.println(e.getMessage());
+                sc.nextLine();
+            }
+
+        }
     }
 
     @Override
     public void updateProductPrice() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateProductPrice'");
+        Scanner sc = new Scanner(System.in);
+        LinkedList<Integer> data = new LinkedList<>();
+        while (true) {
+            try {
+                System.out.println("Enter the product id to update stock");
+                int id = sc.nextInt();
+                System.out.println("Enter the new price");
+                data.add(sc.nextInt());
+                conector.connect();
+                conector.updateInt(data, new String[] { "price" }, id);
+                System.out.println("Updated correctly");
+                break;
+            } catch (InputMismatchException | SQLException e) {
+                System.err.println(e.getMessage());
+                sc.nextLine();
+            }
+
+        }
     }
 
     @Override
     public void deleteProduct() {
         Scanner sc = new Scanner(System.in);
-        System.out.println("Enter the product id to delete");
         while (true) {
             try {
+                System.out.println("Enter the product id to delete");
                 int id = sc.nextInt();
                 conector.connect();
                 conector.deleteOne(id);
@@ -51,6 +83,7 @@ public class Main implements mainInterface {
             } catch (InputMismatchException  | SQLException e) {
                 // TODO: handle exception
                 System.err.println(e.getMessage());
+                sc.nextLine();
             } 
         }
     }
@@ -68,6 +101,11 @@ public class Main implements mainInterface {
     @Override
     public void productAsk() throws SQLException {
         ask.Asking();
+    }
+
+    public void getAll() throws SQLException {
+        conector.connect();
+        conector.getAll();
     }
     
 }

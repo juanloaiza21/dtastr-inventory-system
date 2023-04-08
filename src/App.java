@@ -104,13 +104,15 @@ public class App {
              * Buy product
              * Make a devolution
              * Ask for a product
+             * get all products
              */
             while (true) {
                 System.out.println("");
                 System.out.println("1. Buy product");
                 System.out.println("2. Make a devolution");
                 System.out.println("3. Ask for a product");
-                System.out.println("4. Exit");
+                System.out.println("4. Get products");
+                System.out.println("5. Exit");
                 try {
                     selector = sc.nextInt();
                     switch (selector) {
@@ -124,6 +126,9 @@ public class App {
                             iMain.productAsk();
                         break;
                         case 4:
+                            iMain.getAll();
+                         break;
+                        case 5:
                             System.exit(0);
                         break;
                         default:
