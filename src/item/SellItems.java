@@ -21,35 +21,37 @@ public class SellItems {
     public void Selling() {
 
         Scanner scan = new Scanner(System.in);
-
-        try {
-
-            Item it = new Item(0, null, 0, 0);
-            LinkedList<Item> itemsList = it.getItems();
-            System.out.println("Which item do u wanna buy: ");
-            String name = scan.nextLine();
-            System.out.println("How many: ");
-            int Amount = scan.nextInt();
-
-            Item itemToSell = it.getItem(itemsList, name);
-            if (itemToSell != null) {
-                if (itemToSell.getStock() >= Amount) {
-                    itemToSell.setStock(itemToSell.getStock() - Amount);
-                    System.out.println("Product selled: " + itemToSell.getName());
-                    System.out.println("Thanks for your purchase");
-
-                    updateStock(itemToSell);
+        Boolean controller = true;
+        while (controller) {
+            try {
+                Item it = new Item(0, null, 0, 0);
+                LinkedList<Item> itemsList = it.getItems();
+                System.out.println("Name of the item do u wanna buy: ");
+                String name = scan.nextLine();
+                System.out.println("How many: ");
+                int Amount = scan.nextInt();
+    
+                Item itemToSell = it.getItem(itemsList, name);
+                if (itemToSell != null) {
+                    if (itemToSell.getStock() >= Amount) {
+                        itemToSell.setStock(itemToSell.getStock() - Amount);
+                        System.out.println("Product selled: " + itemToSell.getName());
+                        System.out.println("Thanks for your purchase");
+                        updateStock(itemToSell);
+                        controller = false;
+                    } else {
+                        System.out.println("There are not enough stock! ");
+                        controller = false;
+                    }
                 } else {
-                    System.out.println("There are not enough stock! ");
-
+                    System.out.println("Item not Found!");
+                    controller = false;
                 }
-            } else {
-                System.out.println("Item not Found!");
+            } catch (InputMismatchException | SQLException e) {
+                System.err.println(e.getMessage());
+                scan.nextLine();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
-        scan.close();
     }
 
     private void updateStock(Item itemToSell) throws SQLException {

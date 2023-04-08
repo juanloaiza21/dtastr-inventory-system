@@ -308,10 +308,12 @@ public class Conector implements Query {
      * @param result
      */
     private void productParse(ResultSet result) {
+        System.out.println("      ");
+        System.out.println("id | name     | price     | stock   ");
         try {
             while (result.next()) {
-                System.out.println(result.getInt("id") + ": " + result.getString("name") + " "
-                        + result.getDouble("price") + " " + result.getInt("stock"));
+                System.out.println(result.getInt("id") + "       " + result.getString("nombre") + "       "
+                        + result.getDouble("price") + "         " + result.getInt("stock"));
             }
         } catch (Exception e) {
             System.err.println(e.getMessage());
@@ -325,6 +327,8 @@ public class Conector implements Query {
      * @param result
      */
     private void userParse(ResultSet result) {
+        System.out.println("      ");
+        System.out.println("id     | name     | email     | rol   ");
         try {
             while (result.next()) {
                 System.out.println(result.getInt("id") + ": " + result.getString("nombre") + " "
