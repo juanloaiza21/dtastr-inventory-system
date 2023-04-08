@@ -18,28 +18,36 @@ public class AskProducts {
         conector = new Conector("jdbc:mysql://localhost:3306/DTAPROYECT", "root", "PCTdkx58");
         conector.setTable("PRODUCTS");
     }
-
+    
     public void Asking() throws SQLException {
         Scanner scan = new Scanner(System.in);
         Queue<Item> data = new LinkedList<>();
-        while (true) {
-            System.out.println("do u wanna ask a product: ");
-            String flag = scan.nextLine().toLowerCase();
-
-            if (flag.equals("no")) {
-                break;
-            } else {
-                System.out.println("name:");
-                String name = scan.next();
-                scan.nextLine();
-                System.out.println("how many items: ");
-                int stock = scan.nextInt();
-                data.add(new Item(0, name, 0, stock));
-                scan.nextLine();
+        try {
+            while (true) {
+                System.out.println("do u wanna ask a product: 1. yes, 2. no");
+                int flag = scan.nextInt();
+                if (flag == 2) {
+                    break;
+                } else if(flag == 1){
+                    System.out.println("name:");
+                    String name = scan.next();
+                    scan.nextLine();
+                    System.out.println("how much stock: ");
+                    int stock = scan.nextInt();
+                    data.add(new Item(0, name, 0, stock));
+                    scan.nextLine();
+                }
+                else {
+                    System.out.println("Incorrect Option");
+                }
             }
+            adding(data);
+            scan.close();
+        } catch (InputMismatchException e) {
+            // TODO: handle exception
+            System.err.println("Must be int");
+            scan.nextLine();
         }
-        adding(data);
-        scan.close();
 
     }
 

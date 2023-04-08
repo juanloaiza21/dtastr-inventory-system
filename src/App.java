@@ -1,3 +1,4 @@
+import java.sql.SQLException;
 import java.util.*;
 import users.Main;
 import item.*;
@@ -8,7 +9,7 @@ import item.*;
  */
 public class App {
     
-    public static void main(String[] args){
+    public static void main(String[] args) throws SQLException{
         Main main = new Main();
         item.Main iMain = new item.Main();
         Scanner sc = new Scanner(System.in);
@@ -63,7 +64,6 @@ public class App {
              * delete product
              */
             while (true) {
-                sc.nextLine();
                 System.out.println("");
                 System.out.println("1. Add product");
                 System.out.println("2. Update product stock");
@@ -77,7 +77,7 @@ public class App {
                             iMain.addProduct();
                         break;
                         case 2:
-                            iMain.uodateProductStock();
+                            iMain.updateProductStock();
                         break;
                         case 3:
                             iMain.updateProductPrice();
@@ -92,7 +92,7 @@ public class App {
                             System.out.println("Incorrect option: " + sc.nextInt());
                         break;
                     }
-                } catch (InputMismatchException e){
+                } catch (InputMismatchException | UnsupportedOperationException e){
                     System.err.println("The option must be a int");
                     sc.nextLine();
                 }
@@ -106,7 +106,6 @@ public class App {
              * Ask for a product
              */
             while (true) {
-                sc.nextLine();
                 System.out.println("");
                 System.out.println("1. Buy product");
                 System.out.println("2. Make a devolution");

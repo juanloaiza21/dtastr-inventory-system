@@ -1,5 +1,7 @@
 package item;
 
+import java.sql.SQLException;
+
 /**
  * @author Juan Loaiza
  */
@@ -9,11 +11,11 @@ public interface mainInterface {
     /**
      * Add a prduct trought console
      */
-    void addProduct();
+    void addProduct() throws SQLException;
     /**
      * Update stock trought console
      */
-    void uodateProductStock();
+    void updateProductStock();
     /**
      * Update price trought console
      */
@@ -27,5 +29,5 @@ public interface mainInterface {
 
     void devolution();
 
-    void productAsk();
+    void productAsk() throws SQLException;
 }
