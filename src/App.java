@@ -57,19 +57,14 @@ public class App {
         if (main.getTypeUser()) {
             //TODO seller menu
             System.out.println("Welcome to seller menu!");
-            /*
-             * Add product
-             * update product stock
-             * update product price
-             * delete product
-             */
             while (true) {
                 System.out.println("");
                 System.out.println("1. Add product");
                 System.out.println("2. Update product stock");
                 System.out.println("3. Update product price");
                 System.out.println("4. Delete product");
-                System.out.println("5. Exit");
+                System.out.println("5. Get products");
+                System.out.println("6. Exit");
                 try {
                     selector = sc.nextInt();
                     switch (selector) {
@@ -86,6 +81,9 @@ public class App {
                             iMain.deleteProduct();
                         break;
                         case 5:
+                            iMain.getAll();
+                        break;
+                        case 6:
                             System.exit(0);
                         break;
                         default:
@@ -98,13 +96,8 @@ public class App {
                 }
             }
         } else{
-            //TODO user menu
             System.out.println("Welcome to user menu!");
             /*
-             * Buy product
-             * Make a devolution
-             * Ask for a product
-             * get all products
              */
             while (true) {
                 System.out.println("");

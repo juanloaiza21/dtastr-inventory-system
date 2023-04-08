@@ -61,17 +61,4 @@ public class SellItems {
         conector.updateInt(data, new String[] { "stock" }, itemToSell.getId());
     }
 
-    // public static void main(String[] args) throws SQLException {
-    //     String url = "jdbc:mysql://localhost:3306/DTAPROYECT";
-    //     String user = "root";
-    //     String password = "alejo2425";
-
-    //     // SellItems sell = new SellItems();
-    //     // sell.Selling();
-    //     Conector conector = new Conector(url, user, password);
-    //     conector.setTable("PRODUCTS");
-    //     conector.connect();
-    //     conector.getAll();
-    // }
-
 }

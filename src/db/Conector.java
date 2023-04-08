@@ -280,7 +280,7 @@ public class Conector implements Query {
             if (result > 0)
                 System.out.println("Succesfully deleted");
             if (result <= 0)
-                throw new Exception("Error inserting");
+                throw new Exception("Error deleting");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

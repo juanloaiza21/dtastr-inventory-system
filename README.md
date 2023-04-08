@@ -23,4 +23,22 @@ The `JAVA PROJECTS` view allows you to manage your dependencies. More details ca
 
 
 ## Mockup Data
-In the folder script you will find some SQL if you want to test the DB.
+In the folder script you will find some SQL if you want to test the DB (The users are unusable, this is because the password is on UTF-8 unhashed, and the password you create is on MD5 hash).
+
+## Functionalities
+* User
+    * Buy product (Mockup just by name)
+    * Make a devolution (Mockup just by id)
+    * Ask for a product (Add a product with stock = 0)
+    * get all products (See all products with'em price)
+* Store
+    * Add product
+    * update product stock
+    * update product price
+    * delete product
+
+## Bugs
+This version as an alpha have certain bugs and functionalities that are not complete working, and some functionalities that are going to be when graph version is out (Planned for alpha 2 or teacher requirement)
+
+## Things that are left
+in this version the stores act as a super user, it means that the can edit everything related to items, this is somenthing that is going to be fixed on alpha 2 adding a relation between items and store, but this is just a demo where we are using the sequential data structures, so its somenthing to improbe after we implement all data structures required

@@ -65,16 +65,4 @@ public class AskProducts {
 
     }
 
-    public static void main(String[] args) throws SQLException {
-        String url = "jdbc:mysql://localhost:3306/DTAPROYECT";
-        String user = "root";
-        String password = "PCTdkx58";
-
-        Conector conector = new Conector(url, user, password);
-        conector.connect();
-        AskProducts flag = new AskProducts();
-        flag.Asking();
-
-    }
-
 }

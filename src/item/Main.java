@@ -78,7 +78,6 @@ public class Main implements mainInterface {
                 int id = sc.nextInt();
                 conector.connect();
                 conector.deleteOne(id);
-                System.out.println("Deleted correctly");
                 break;
             } catch (InputMismatchException  | SQLException e) {
                 // TODO: handle exception
