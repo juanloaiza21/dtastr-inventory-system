@@ -23,7 +23,12 @@ The `JAVA PROJECTS` view allows you to manage your dependencies. More details ca
 
 
 ## Mockup Data
-In the folder script you will find some SQL if you want to test the DB (The users are unusable, this is because the password is on UTF-8 unhashed, and the password you create is on MD5 hash).
+In the folder script you will find some SQL if you want to test the DB or anything else.
+* User list and password
+    * usuario1@example.com : password123
+    * usuario2@example.com : abcd1234
+    * usuario3@example.com : qwerty123
+    * usuario4@example.com : 1234abcd
 
 ## Functionalities
 * User
