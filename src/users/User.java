@@ -86,6 +86,7 @@ public class User extends Users {
             LinkedList<Object> user = userConverter(data);
             conector.connect();
             conector.insert(user, createFields);
+            conector.closeC();
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }

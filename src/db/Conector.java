@@ -167,8 +167,6 @@ public class Conector implements Query {
                 }
             }
             result = instruction.executeUpdate();
-            if (result > 0)
-                System.out.println("Succesfully inserted");
             if (result <= 0)
                 throw new Exception("Error inserting");
         } catch (Exception e) {

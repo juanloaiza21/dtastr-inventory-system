@@ -64,8 +64,13 @@ public class Test {
     }
 
     public void testInsertUser(int n) throws SQLException {
-        
-        user.createUser(null);
+        long time = -System.nanoTime();
+        for (int i = 0; i < n; i++) {
+            user.createUser(new String[] {Integer.toString(i), Integer.toString(i), Integer.toString(i), Integer.toString(i), "USER", Integer.toString(i)});
+        }
+        time += System.nanoTime();
+        System.out.println("The time for insert " + n + " users is: " + time + " nanoseconds");
+
     }
         
 
@@ -97,7 +102,8 @@ public class Test {
            */
 
            try {
-            
+            Test test = new Test();
+            test.testInsertUser(10000);
            } catch (Exception e) {
             // TODO: handle exception
            }
