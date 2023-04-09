@@ -52,14 +52,13 @@ public class AskProducts {
 
     }
 
-    private void adding(Queue<Item> data) throws SQLException {
+    public void adding(Queue<Item> data) throws SQLException {
         conector.connect();
         for (Item item : data) {
             String name = item.getName();
             double price = item.getPrice();
             int stock = item.getStock();
             conector.insertProduct(name, price, stock);
-
         }
         data.clear();
 

@@ -188,9 +188,7 @@ public class Conector implements Query {
             instruction.setDouble(2, price);
             instruction.setInt(3, stock);
             result = instruction.executeUpdate();
-            if (result > 0)
-                System.out.println("Successfully inserted new product");
-            else
+            if (result <= 0)
                 throw new Exception("Error inserting new product");
         } catch (Exception e) {
             System.err.println(e.getMessage());

@@ -1,26 +1,38 @@
 import java.util.*;
 import java.lang.*;
+import java.util.*;
 import java.sql.*;
 import db.Conector;
 import item.*;
 import users.*;
+import util.Datos;
 
 public class Test {
     
     private Conector conector;
     private  User user;
-    private Item item;
-    private int id, stock;
-    private String name;
-    private double price;
+    private Datos datos = new Datos();
+    private Item[] item;
 
     public Test() throws SQLException {
         conector = new Conector("jdbc:mysql://localhost:3306/DTAPROYECT", "root", "PCTdkx58");
         user = new User();
-        id = stock = 0;
-        name = "name" + 0;
-        price = 0.0;
-        item = new Item(id, name, price, stock);
+        item = datos.items;
+    }
+
+    public void TestInsertItems(int n) throws SQLException {
+        Queue<Item> data = new LinkedList<>();
+        int counter = 0;
+        for (int i = 0; i < n-1; i++) {
+            data.add(item[counter]);
+            if (counter < 999)counter++;
+            else counter = 0;
+        }
+        Long time = -System.nanoTime();
+        AskProducts ask = new AskProducts();
+        ask.adding(data);
+        time += System.nanoTime();
+        System.out.println("The time for insert " + n + " items is: " + time + " nanoseconds");
     }
 
     public void testLogin(int n) throws SQLException {
@@ -50,15 +62,45 @@ public class Test {
             System.out.println("The average time for login is: " + resutl + " nanoseconds" + " in " + i + " iterations");
         }
     }
+
+    public void testInsertUser(int n) throws SQLException {
+        
+        user.createUser(null);
+    }
         
 
     public static void main(String[] args) {
-        try {
+        /*
+         * Test de login, el parametro es el numero de loginsq ue se busca hacer
+         *        try {
             Test test = new Test();
             test.testLogin(1000000);
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
+         */
+
+         /*
+          * 
+          * Test de insercion de items, el parametro es el numero de items que se quiere insertar
+          try {
+            Test test = new Test();
+            test.TestInsertItems(2500);
+         } catch (Exception e) {
+            // TODO: handle exception
+            System.out.println(e.getMessage());
+         }
+          */
+
+          /*
+           * Test insercion usuarios
+           */
+
+           try {
+            
+           } catch (Exception e) {
+            // TODO: handle exception
+           }
     }
        
 }
