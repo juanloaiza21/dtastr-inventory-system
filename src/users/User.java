@@ -38,6 +38,7 @@ public class User extends Users {
         } else {
             typeUser = false;
         }
+        conector.closeC();
     }
 
     public String getByEmail(String email) throws SQLException {

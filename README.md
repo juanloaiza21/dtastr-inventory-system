@@ -46,4 +46,4 @@ In the folder script you will find some SQL if you want to test the DB or anythi
 This version as an alpha have certain bugs and functionalities that are not complete working, and some functionalities that are going to be when graph version is out (Planned for alpha 2 or teacher requirement)
 
 ## Things that are left
-in this version the stores act as a super user, it means that the can edit everything related to items, this is somenthing that is going to be fixed on alpha 2 adding a relation between items and store, but this is just a demo where we are using the sequential data structures, so its somenthing to improbe after we implement all data structures required
+In this version the stores act as a super user, it means that the can edit everything related to items, this is somenthing that is going to be fixed on alpha 2 adding a relation between items and store, but this is just a demo where we are using the sequential data structures, so its somenthing to improbe after we implement all data structures required

@@ -46,6 +46,10 @@ public class Conector implements Query {
         }
     }
 
+    public void closeC() throws SQLException {
+        conn.close();
+    }
+
     @Override
     public void setTable(String table) {
         this.table = table;
@@ -123,6 +127,7 @@ public class Conector implements Query {
             // TODO: handle exception
             System.err.println(e.getMessage());
         }
+
         return data;
     };
 
