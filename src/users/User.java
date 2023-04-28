@@ -38,6 +38,7 @@ public class User extends Users {
         } else {
             typeUser = false;
         }
+        conector.close();
     }
 
     public String getByEmail(String email) throws SQLException {
@@ -56,6 +57,7 @@ public class User extends Users {
                 throw new IllegalStateException("The update fields must be 'nombre', 'email', 'cellphone', 'rol' or 'pass'");
             }
         }
+        
     }
 
     @Override
@@ -85,6 +87,7 @@ public class User extends Users {
             LinkedList<Object> user = userConverter(data);
             conector.connect();
             conector.insert(user, createFields);
+            conector.close();
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
@@ -104,6 +107,7 @@ public class User extends Users {
             user.remove(0);
             conector.update(user, updateFields, id);
             conector.getOne(id);
+            conector.close();
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
@@ -125,6 +129,7 @@ public class User extends Users {
             user.remove(0);
             conector.update(user, updateFields, id);
             conector.getOne(id);
+            conector.close();
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
