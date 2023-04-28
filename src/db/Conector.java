@@ -269,6 +269,10 @@ public class Conector implements Query {
         }
     }
 
+    public void close() throws SQLException {
+        conn.close();
+    }
+
     @Override
     public void deleteOne(int id) {
         PreparedStatement instruction;
