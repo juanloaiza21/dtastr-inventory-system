@@ -50,12 +50,12 @@ public class Item extends ItemA{
     
     // get an item from the linked list
     public ItemA getItem(int id) {
-        for (ItemA item : items) {
-            if (item.getId() == id) {
-                return item;
+            for (ItemA item : items) {
+                if (item.getId() == id) {
+                    return item;
+                }
             }
-        }
-        return null;
+            return null;
     }
 
     public LinkedList<ItemA> getItems() throws SQLException {
@@ -68,6 +68,11 @@ public class Item extends ItemA{
             LinkedList<ItemA> items = item.getItems();
             for (ItemA itemA : items) {
                 System.out.println(itemA.getId() + " " + itemA.getName() + " " + itemA.getPrice() + " " + itemA.getStock());
+            }
+            try {
+                System.out.println(item.getItem(1).getName());
+            } catch (Exception e) {
+                System.err.println(e.getMessage());
             }
         } catch (SQLException e) {
             System.err.println(e.getMessage());
