@@ -9,12 +9,12 @@ import java.util.*;
  */
 public class Main {
     
-    User user;
+    UserFun user;
     Boolean logged;
     Boolean typeUser;
 
     public Main(){
-        user = new User();
+        user = new UserFun();
         logged = user.getLogged();
         typeUser = user.getTypeUser();
     }
@@ -160,4 +160,5 @@ public class Main {
         user.getAllUsers(); 
     }
 
+    
 }
