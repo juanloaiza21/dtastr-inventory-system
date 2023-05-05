@@ -21,8 +21,8 @@ public class Main implements mainInterface {
     }
     
     @Override
-    public void addProduct() throws SQLException {
-        ask.Asking();
+    public void addProduct(String emailVendedor) throws SQLException {
+        ask.Asking(emailVendedor);
     }
 
     @Override

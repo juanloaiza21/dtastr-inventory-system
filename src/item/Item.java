@@ -16,13 +16,15 @@ public class Item {
     private String name;
     private double price;
     private int stock;
+    private String vendedor;
     Conector conector;
 
-    public Item(int id, String name, double price, int stock) throws SQLException {
+    public Item(int id, String name, double price, int stock, String vendedor) throws SQLException {
         this.name = name;
         this.id = id;
         this.price = price;
         this.stock = stock;
+        this.vendedor = vendedor;
         //conector = new Conector("jdbc:mysql://localhost:3306/DTAPROYECT", "root", "alejo2425");
         conector = new Conector("jdbc:mysql://localhost:3306/DTAPROYECT", "root", "PCTdkx58");
         conector.setTable("PRODUCTS");
@@ -35,6 +37,16 @@ public class Item {
     public void setName(String name) {
         this.name = name;
     }
+
+    public String getVendedorName() {
+        return vendedor;
+    }
+
+    public void setVendedorName(String vendedor) {
+        this.vendedor = vendedor;
+    }
+
+    
 
     public int getId() {
         return id;
@@ -83,8 +95,8 @@ public class Item {
             String name = result.getString("nombre"); // "name" or 2
             double price = result.getDouble("price"); // "price " or 3
             int stock = result.getInt("stock"); // "stock" or 4
-
-            itemsList.add(new Item(id, name, price, stock));
+            String vendedor = result.getString("vendedor"); // "stock" or 5
+            itemsList.add(new Item(id, name, price, stock,vendedor));
 
         }
         result.close();

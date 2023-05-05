@@ -27,6 +27,10 @@ public class Main {
         return typeUser;
     }
 
+    public String getEmail(){
+        return user.getEmail();
+    }
+
     /**
      * Create an user
      */

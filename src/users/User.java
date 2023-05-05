@@ -13,6 +13,9 @@ public class User extends Users {
     Boolean logged;
     Boolean typeUser;
     int userId;
+    String email;
+
+
 
     public User() {
         super();
@@ -27,8 +30,13 @@ public class User extends Users {
         return typeUser;
     }
 
+    public String getEmail(){
+        return email;
+    }
+
     public void login(String email, String password) throws SQLException {
         this.password = password;
+        this.email = email;
         conector.connect();
         String hasedPass = conector.getOne("pass", email, "email");
         passwordCrypt();

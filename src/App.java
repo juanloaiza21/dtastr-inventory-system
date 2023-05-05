@@ -69,7 +69,7 @@ public class App {
                     selector = sc.nextInt();
                     switch (selector) {
                         case 1:
-                            iMain.addProduct();
+                            iMain.addProduct(main.getEmail());
                         break;
                         case 2:
                             iMain.updateProductStock();
