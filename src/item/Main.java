@@ -35,8 +35,7 @@ public class Main implements mainInterface {
                 int id = sc.nextInt();
                 System.out.println("Enter the new stock");
                 data.add(sc.nextInt());
-                conector.connect();
-                conector.updateInt(data, new String[] { "stock" }, id);
+                updateProductStockSQL(data,id)
                 System.out.println("Updated correctly");
                 break;
             } catch (InputMismatchException | SQLException e) {
@@ -44,6 +43,16 @@ public class Main implements mainInterface {
                 sc.nextLine();
             }
 
+        }
+    }
+    public void updateProductStockSQL(LinkedList<Integer> data,int id) {
+        try {
+            conector.connect();
+            conector.updateInt(data, new String[] { "stock" }, id);
+
+        } catch (InputMismatchException | SQLException e) {
+            System.err.println(e.getMessage());
+            sc.nextLine();
         }
     }
 
@@ -89,7 +98,37 @@ public class Main implements mainInterface {
 
     @Override
     public void sellItem() {
-        sell.Selling();
+        Scanner scan = new Scanner(System.in);
+        Boolean controller = true;
+        while (controller) {
+            try {
+                Item it = new Item(0, null, 0, 0);
+                LinkedList<Item> itemsList = it.getItems();
+                System.out.println("Name of the item do u wanna buy: ");
+                String name = scan.nextLine();
+                System.out.println("How many: ");
+                int Amount = scan.nextInt();    
+                Item itemToSell = it.getItem(itemsList, name);
+                if (itemToSell != null) {
+                    if (itemToSell.getStock() >= Amount) {
+                        itemToSell.setStock(itemToSell.getStock() - Amount);
+                        updateProductStockSQL(data,itemToSell.getId())
+                        System.out.println("Product selled: " + itemToSell.getName());
+                        System.out.println("Thanks for your purchase");
+                        controller = false;
+                    } else {
+                        System.out.println("There are not enough stock! ");
+                        controller = false;
+                    }
+                } else {
+                    System.out.println("Item not Found!");
+                    controller = false;
+                }
+            } catch (InputMismatchException | SQLException e) {
+                System.err.println(e.getMessage());
+                scan.nextLine();
+            }
+        }
     }
 
     @Override
