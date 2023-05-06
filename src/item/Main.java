@@ -12,8 +12,8 @@ public class Main implements mainInterface {
     Conector conector;
     Devolution devolution;
     SellItems sell;
-    public Main (){
-        ask = new AskProducts();
+    public Main (String seller) throws SQLException{
+        ask = new AskProducts(seller);
         devolution = new Devolution();
         sell = new SellItems();
         conector = new Conector("jdbc:mysql://localhost:3306/DTAPROYECT", "root", "PCTdkx58");

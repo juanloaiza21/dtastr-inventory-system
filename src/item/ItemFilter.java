@@ -12,6 +12,7 @@ public class ItemFilter {
     private TreeMap<Integer, Integer> filterStock;
     private TreeMap<Double, Integer> filterPrice;
     private TreeMap<String, Integer> filterName;
+    private TreeMap<String, Integer> filterSeller;
     
     /**
      * Constructor
@@ -22,10 +23,12 @@ public class ItemFilter {
         filterStock = new TreeMap<Integer, Integer>();
         filterPrice = new TreeMap<Double, Integer>();
         filterName = new TreeMap<String, Integer>();
+        filterSeller = new TreeMap<String, Integer>();
         for (int i = 0; i < this.item.length; i++) {
             this.filterStock.put(this.item[i].getStock(), this.item[i].getId());
             this.filterPrice.put(this.item[i].getPrice(), this.item[i].getId());
             this.filterName.put(this.item[i].getName(), this.item[i].getId());
+            this.filterSeller.put(this.item[i].getSeller(), this.item[i].getId());
         }
     }
 
@@ -54,11 +57,27 @@ public class ItemFilter {
     }
 
     /**
+     * @param seller
+     * @return id
+     */
+    public int filterBySpecificIdSeller(String seller){
+        return this.filterSeller.get(seller);
+    }
+
+    /**
      * @param key
      * @return Sorted map, name=id
      */
     public SortedMap<String, Integer> nameLessThan(String key) {
         return this.filterName.headMap(key);
+    }
+
+    /**
+     * @param key
+     * @return Sorted map, seller=id
+    */
+    public SortedMap<String, Integer> sellerLessThan(String key) {
+        return this.filterSeller.headMap(key);
     }
 
     /**
@@ -87,6 +106,14 @@ public class ItemFilter {
 
     /**
      * @param key
+     * @return Map.Entry, directly greater than  entry, seller=id
+     */
+    public Map.Entry<String, Integer> sellerGreatherThan(String key) {
+        return this.filterSeller.higherEntry(key);
+    }
+
+    /**
+     * @param key
      * @return Map.Entry, directly greater than  entry, stock=id
      */
     public Map.Entry<Integer, Integer> stockGreatherThan(int key) {
@@ -102,16 +129,4 @@ public class ItemFilter {
     }
 
     
-
-    public static void main(String[] args) throws SQLException {
-        ItemA[] item = new ItemA[5];
-        item[0] = new Item(1, "item1", 1.0, 6);
-        item[1] = new Item(7, "item2", 2.0, 2);
-        item[2] = new Item(3, "item3", 3.0, 3);
-        item[3] = new Item(4, "item4", 4.0, 4);
-        item[4] = new Item(5, "item5", 5.0, 5);
-        ItemFilter itemFilter = new ItemFilter(item);
-        Map.Entry<Double, Integer> price = itemFilter.priceGreatherThan(3.0);
-        System.out.println(price);
-    }
 }

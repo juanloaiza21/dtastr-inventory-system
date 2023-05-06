@@ -10,12 +10,21 @@ import db.Conector;
  */
 
 public class SellItems {
+    private ItemFilter filter;
     private Conector conector;
+    private Item item;
+    private ItemA[] items;
 
-    public SellItems() {
+    public SellItems() throws SQLException {
        // conector = new Conector("jdbc:mysql://localhost:3306/DTAPROYECT", "root", "alejo2425");
         conector = new Conector("jdbc:mysql://localhost:3306/DTAPROYECT", "root", "PCTdkx58");
         conector.setTable("PRODUCTS");
+        item = new Item();
+        items = new ItemA[item.getItems().size()];
+        for (int i = 0; i < items.length; i++) {
+            items[i] = item.getItems().get(i);
+        }
+        filter = new ItemFilter(items);
     }
 
     public void Selling() {
@@ -24,14 +33,11 @@ public class SellItems {
         Boolean controller = true;
         while (controller) {
             try {
-                Item it = new Item(0, null, 0, 0);
-                LinkedList<Item> itemsList = it.getItems();
-                System.out.println("Name of the item do u wanna buy: ");
+                System.out.println("id of the item do u wanna buy: ");
                 String name = scan.nextLine();
                 System.out.println("How many: ");
                 int Amount = scan.nextInt();
-    
-                Item itemToSell = it.getItem(itemsList, name);
+                ItemA itemToSell = item.getItem(filter.filterBySpecificIdName(name));
                 if (itemToSell != null) {
                     if (itemToSell.getStock() >= Amount) {
                         itemToSell.setStock(itemToSell.getStock() - Amount);
@@ -54,7 +60,7 @@ public class SellItems {
         }
     }
 
-    private void updateStock(Item itemToSell) throws SQLException {
+    private void updateStock(ItemA itemToSell) throws SQLException {
         conector.connect();
         LinkedList<Integer> data = new LinkedList<>();
         data.add(itemToSell.getStock());

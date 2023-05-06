@@ -8,8 +8,8 @@ import java.sql.*;
 /**
  * @author john pastor
  * @version 1.0
- * updated 1.0 [28/04/2023]
- * @Updated_by Juan Loaiza
+ * updated 1.0 [6/05/2023]
+ * @Updated_by Brallan mendoza, Juan Loaiza
  */
 public class ItemA {
     
@@ -17,13 +17,23 @@ public class ItemA {
     protected String name;
     protected double price;
     protected int stock;
+    protected String seller;
     Conector conector;
 
-    public ItemA(int id, String name, double price, int stock) throws SQLException {
+    public ItemA(int id, String name, double price, int stock, String seller) throws SQLException {
         this.id = id;
         this.name = name;
         this.price = price;
         this.stock = stock;
+        this.seller = seller;
+    }
+
+    public String getSeller() {
+        return seller;
+    }
+
+    public void setSeller(String seller) {
+        this.seller = seller;
     }
 
     public String getName() {

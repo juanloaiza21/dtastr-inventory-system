@@ -13,12 +13,14 @@ import db.Conector;
 
 public class AskProducts {
     private Conector conector;
+    private String seller;
 
-    public AskProducts() {
+    public AskProducts(String name) {
         conector = new Conector("jdbc:mysql://localhost:3306/DTAPROYECT", "root", "alejo2425");
         // conector = new Conector("jdbc:mysql://localhost:3306/DTAPROYECT", "root",
         // "PCTdkx58");
         conector.setTable("USERS");
+        seller = name;
     }
 
     public void Asking() throws SQLException {
@@ -37,7 +39,7 @@ public class AskProducts {
                     scan.nextLine();
                     System.out.println("how much stock: ");
                     int stock = scan.nextInt();
-                    data.add(new Item(0, name, 0, stock));
+                    data.add(new Item(0, name, 0, stock, seller));
                     adding(data);
                     scan.nextLine();
                     controller = false;
@@ -77,7 +79,8 @@ public class AskProducts {
                 String name = result.getString("name");
                 double price = result.getDouble("price");
                 int stock = result.getInt("stock");
-                items.add(new Item(id, name, price, stock));
+                String type = result.getString("seller");
+                items.add(new Item(id, name, price, stock, type));
             }
         } catch (SQLException e) {
             System.err.println(e.getMessage());
@@ -92,11 +95,5 @@ public class AskProducts {
         return items;
     }
 
-    public static void main(String[] args) throws SQLException {
-        AskProducts a = new AskProducts();
-        // a.Asking();
-        LinkedList<ItemA> list = a.getItems();
-        System.out.println(list.get(0).name);
-    }
 
 }

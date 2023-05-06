@@ -16,13 +16,13 @@ public class Item extends ItemA{
     LinkedList<ItemA> items;
     
     public Item() throws SQLException{
-        super(0, "", 0.0, 0);
+        super(0, "", 0.0, 0, "");
         conector = new Conector("jdbc:mysql://localhost:3306/DTAPROYECT", "root", "PCTdkx58");
         conector.setTable("PRODUCTS");
     }
 
-    public Item(int id, String name, double price, int stock) throws SQLException {
-        super(id, name, price, stock);
+    public Item(int id, String name, double price, int stock, String seller ) throws SQLException {
+        super(id, name, price, stock, seller);
         conector = new Conector("jdbc:mysql://localhost:3306/DTAPROYECT", "root", "PCTdkx58");
         conector.setTable("PRODUCTS");
         items = null;
@@ -39,7 +39,8 @@ public class Item extends ItemA{
                 String name = result.getString("nombre"); // "name" or 2
                 double price = result.getDouble("price"); // "price " or 3
                 int stock = result.getInt("stock"); // "stock" or 4
-                items.add(new Item(id, name, price, stock));
+                String seller = result.getString("seller"); // "seller" or 5
+                items.add(new Item(id, name, price, stock, seller));
             }
             conector.close();
         } catch (SQLException e) {

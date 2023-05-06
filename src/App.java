@@ -11,7 +11,7 @@ public class App {
     
     public static void main(String[] args) throws SQLException{
         Main main = new Main();
-        item.Main iMain = new item.Main();
+        item.Main iMain;
         Scanner sc = new Scanner(System.in);
         System.out.print("\033[H\033[2J");
         System.out.flush();
@@ -53,6 +53,7 @@ public class App {
                 sc.nextLine();
             } 
         }
+        iMain = new item.Main();
         int selector = 0;
         if (main.getTypeUser()) {
             //TODO seller menu
