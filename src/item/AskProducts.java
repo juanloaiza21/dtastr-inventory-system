@@ -14,13 +14,15 @@ import db.Conector;
 public class AskProducts {
     private Conector conector;
     private String seller;
+    Item item;
 
-    public AskProducts(String name) {
-        conector = new Conector("jdbc:mysql://localhost:3306/DTAPROYECT", "root", "alejo2425");
+    public AskProducts(String name) throws SQLException {
+        conector = new Conector("jdbc:mysql://localhost:3306/DTAPROYECT", "root", "PCTdkx58");
         // conector = new Conector("jdbc:mysql://localhost:3306/DTAPROYECT", "root",
         // "PCTdkx58");
-        conector.setTable("USERS");
+        conector.setTable("ASKPRODUCTS");
         seller = name;
+        item = new Item();
     }
 
     public void Asking() throws SQLException {
@@ -37,9 +39,7 @@ public class AskProducts {
                     System.out.println("name:");
                     String name = scan.next();
                     scan.nextLine();
-                    System.out.println("how much stock: ");
-                    int stock = scan.nextInt();
-                    data.add(new Item(0, name, 0, stock, seller));
+                    data.add(new Item(0, name, 0, 0, seller));
                     adding(data);
                     scan.nextLine();
                     controller = false;
@@ -60,40 +60,37 @@ public class AskProducts {
         conector.connect();
         for (Item item : data) {
             String name = item.getName();
-            double price = item.getPrice();
-            int stock = item.getStock();
-            conector.insertProduct(name, price, stock);
-
+            String seller = item.getSeller();
+            conector.insertAsk(name, seller);
         }
         data.clear();
 
     }
 
-    private LinkedList<ItemA> chargeData() {
+    public LinkedList<ItemA> getItems() throws SQLException {
+        return item.getItems();
+    }
+
+    public LinkedList<ItemA> getAsk() throws SQLException {
         LinkedList<ItemA> items = new LinkedList<>();
         try {
             conector.connect();
             ResultSet result = conector.getAllResultSet();
             while (result.next()) {
                 int id = result.getInt("id");
-                String name = result.getString("name");
-                double price = result.getDouble("price");
-                int stock = result.getInt("stock");
-                String type = result.getString("seller");
-                items.add(new Item(id, name, price, stock, type));
+                String name2 = result.getString("nombre");
+                String seller = result.getString("askedBy");
+                items.add(new ItemA(id, name2, 0, 0, seller));
             }
-        } catch (SQLException e) {
+            conector.close();
+        } catch (Exception e) {
             System.err.println(e.getMessage());
         }
         return items;
-
     }
 
-    public LinkedList<ItemA> getItems() throws SQLException {
-        LinkedList<ItemA> items = new LinkedList<>();
-        items = chargeData();
-        return items;
+    public static void main(String[] args) throws SQLException {
+        AskProducts askProducts = new AskProducts("Juan");
+        System.out.println(askProducts.getAsk());
     }
-
-
 }

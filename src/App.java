@@ -53,8 +53,8 @@ public class App {
                 sc.nextLine();
             } 
         }
-        iMain = new item.Main();
         int selector = 0;
+        iMain = new item.Main(main.getEmail());
         if (main.getTypeUser()) {
             //TODO seller menu
             System.out.println("Welcome to seller menu!");
