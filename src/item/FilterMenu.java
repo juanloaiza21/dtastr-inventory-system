@@ -114,9 +114,9 @@ public class FilterMenu {
         }
     }
 
-    public void getItemByPriceGreatherThan(Double name){
+    public void getItemByPriceGreatherThan(Double price){
         try {
-            Entry <Double, Integer> data = itemFilter.priceGreatherThan(name);
+            Entry <Double, Integer> data = itemFilter.priceGreatherThan(price);
             System.out.println("id: "+this.item.getItem(data.getValue()).id+" Nombre: "+ this.item.getItem(data.getValue()).name+ " precio: "+this.item.getItem(data.getValue()).price+ " Stock:  "+this.item.getItem(data.getValue()).stock + " Vendedor: " + this.item.getItem(data.getValue()).seller);
         } catch (Exception e) {
             System.out.println("No se encontro el item");

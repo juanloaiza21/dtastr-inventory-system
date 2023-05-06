@@ -106,5 +106,65 @@ public class Main implements mainInterface {
         conector.connect();
         conector.getAll();
     }
+
+    @Override
+    public void productAsked() throws SQLException {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'productAsked'");
+    }
+
+    @Override
+    public void getitemByName(String name) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getitemByName'");
+    }
+
+    @Override
+    public void getItemByStock(int stock) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getItemByStock'");
+    }
+
+    @Override
+    public void getItemByPrice(double price) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getItemByPrice'");
+    }
+
+    @Override
+    public void itemBynameLess(String seller) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'itemBynameLess'");
+    }
+
+    @Override
+    public void getItemByStockLess(int stock) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getItemByStockLess'");
+    }
+
+    @Override
+    public void getItemByPriceLess(double price) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getItemByPriceLess'");
+    }
+
+    @Override
+    public void itemBynameGreater(String name) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'itemBynameGreater'");
+    }
+
+    @Override
+    public void getItemByPriceGreater(double price) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getItemByPriceGreater'");
+    }
+
+    @Override
+    public void getItemByStockGreater(int stock) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getItemByStockGreater'");
+    }
     
 }
