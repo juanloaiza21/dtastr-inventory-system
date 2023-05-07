@@ -6,6 +6,7 @@ import db.Conector;
 import item.*;
 import users.*;
 import util.Datos;
+import java.io.ByteArrayInputStream;
 
 public class Test {
     
@@ -72,18 +73,61 @@ public class Test {
         System.out.println("The time for insert " + n + " users is: " + time + " nanoseconds");
 
     }
-        
+
+    public void testAsking(int n) throws SQLException {
+        AskProducts askProducts = new AskProducts();
+        String input = "1\n" + "product1\n" + "1000\n" + "2\n";
+        ByteArrayInputStream in = new ByteArrayInputStream(input.getBytes());
+        long time = 0;
+        for(int i =0;i<n;n++){
+            System.setIn(in);
+            askProducts.Asking();
+            time += System.nanoTime();
+        }
+        long avgTime = time /n;
+        System.out.println("The average time for " + n + " executions of asking() is: " + avgTime + " nanoseconds"); 
+    }
+    
+    public void testDevolution(int n) {
+        long time = -System.nanoTime();
+        Devolution dev = new Devolution();
+        for (int i = 0; i < n; i++) {
+            dev.devolution();
+            time += System.nanoTime();
+        }
+        long avgTime = time/n;
+        System.out.println("The average time for " + n + " executions of devolution() is: " + avgTime + " nanoseconds");
+    }
+    
+    public void testSelling(int n){
+        long time = -System.nanoTime();
+        SellItems sell = new SellItems();
+        for(int i= 0; i<n;i++){
+            sell.Selling();
+            time +=System.nanoTime();
+        }
+        long avgTime = time/n;
+        System.out.println("The average time for "+ n + "executions of selling() is: "+avgTime+ " nanoseconds");
+        }
+    
 
     public static void main(String[] args) {
+        
+        try {
+            Test test = new Test();
+            test.testSelling(1000000);
+        }catch (SQLException e){
+            System.err.println(e.getMessage());
+        }
         /*
-         * Test de login, el parametro es el numero de loginsq ue se busca hacer
-         *        try {
+         Test de login, el parametro es el numero de loginsq ue se busca hacer
+               try {
             Test test = new Test();
             test.testLogin(1000000);
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
-         */
+         */ 
 
          /*
           * 
@@ -101,12 +145,11 @@ public class Test {
            * Test insercion usuarios
            */
 
-           try {
+           /*try {
             Test test = new Test();
             test.testInsertUser(10000);
            } catch (Exception e) {
             // TODO: handle exception
-           }
-    }
-       
+           }*/
+    }  
 }
