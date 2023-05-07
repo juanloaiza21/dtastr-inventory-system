@@ -12,12 +12,15 @@ public class Main implements mainInterface {
     Conector conector;
     Devolution devolution;
     SellItems sell;
-    public Main (){
-        ask = new AskProducts();
+    FilterMenu filter;
+
+    public Main (String seller) throws SQLException{
+        ask = new AskProducts(seller);
         devolution = new Devolution();
         sell = new SellItems();
         conector = new Conector("jdbc:mysql://localhost:3306/DTAPROYECT", "root", "PCTdkx58");
         conector.setTable("PRODUCTS");
+        filter = new FilterMenu();
     }
     
     @Override
@@ -105,6 +108,104 @@ public class Main implements mainInterface {
     public void getAll() throws SQLException {
         conector.connect();
         conector.getAll();
+    }
+
+    @Override
+    public void productAsked() throws SQLException {
+        try {
+            LinkedList <ItemA >items = ask.getAsk();
+            for (ItemA item : items) {
+                System.out.println("id: "+item.getId() + " Nombre: "+ item.getName());
+            }
+        } catch (Exception e) {
+            System.out.println("Producto no encontrado");
+        }
+    }
+
+    @Override
+    public void getItemByStock(int stock) {
+        try {
+            filter.getItemByStock(stock);
+        } catch (Exception e) {
+            // TODO: handle exception
+            System.out.println("Producto no encontrado");
+        }
+    }
+
+    @Override
+    public void getItemByPrice(double price) {
+        try {
+            filter.getItemByPrice(price);
+        } catch (Exception e) {
+            // TODO: handle exception
+            System.out.println("Producto no encontrado");
+        }
+    }
+
+    @Override
+    public void itemBynameLess(String seller) {
+        try {
+            filter.getListOfItemsByNameLessThan(seller);
+        } catch (Exception e) {
+            System.out.println("Producto no encontrado");
+        }
+    }
+
+    @Override
+    public void getItemByStockLess(int stock) {
+        try {
+            filter.getListOfItemsByStockLessThan(stock);
+        } catch (Exception e) {
+            // TODO: handle exception
+            System.out.println("Producto no encontrado");
+        }
+    }
+
+    @Override
+    public void getItemByPriceLess(double price) {
+        try {
+            filter.getListOfItemsByPriceLessThan(price);
+        } catch (Exception e) {
+            // TODO: handle exception
+            System.out.println("Producto no encontrado");
+        }
+    }
+
+    @Override
+    public void itemBynameGreater(String name) {
+        try {
+            filter.getItemByNameGreatherThan(name);
+        } catch (Exception e) {
+            System.out.println("Producto no encontrado");
+        }
+    }
+
+    @Override
+    public void getItemByPriceGreater(double price) {
+        try {
+            filter.getItemByPriceGreatherThan(price);
+        } catch (Exception e) {
+            System.out.println("Producto no encontrado");
+        }
+    }
+
+    @Override
+    public void getItemByStockGreater(int stock) {
+        try {
+            filter.getItemByStockGreatherThan(stock);
+        } catch (Exception e) {
+            System.out.println("Producto no encontrado");
+        }
+    }
+
+    @Override
+    public void getitemByName(String name) {
+        try {
+            filter.getItemByName(name);
+        } catch (Exception e) {
+            // TODO: handle exception
+            System.out.println("Producto no encontrado");
+        }
     }
     
 }

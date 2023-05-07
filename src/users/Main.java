@@ -9,16 +9,22 @@ import java.util.*;
  */
 public class Main {
     
-    User user;
-    Boolean logged;
-    Boolean typeUser;
+    private UserFun user;
+    private Boolean logged;
+    private Boolean typeUser;
+    private String email;
 
     public Main(){
-        user = new User();
+        user = new UserFun();
         logged = user.getLogged();
         typeUser = user.getTypeUser();
+        email = "";
     }
 
+    public String getEmail() {
+        return email;
+    }
+    
     public Boolean getLogged() {
         return logged;
     }
@@ -126,7 +132,7 @@ public class Main {
         try {
             Scanner sc = new Scanner(System.in);
             System.out.println("Enter the email of the user ");
-            String email = sc.nextLine();
+            email = sc.nextLine();
             System.out.println("Enter the password of the user ");
             String pass = sc.nextLine();
             user.login(email, pass);
@@ -160,4 +166,5 @@ public class Main {
         user.getAllUsers(); 
     }
 
+    
 }

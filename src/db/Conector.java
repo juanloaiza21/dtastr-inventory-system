@@ -172,16 +172,36 @@ public class Conector implements Query {
 
     }
 
-    public void insertProduct(String name, double price, int stock) {
+    public void insertProduct(String name, double price, int stock, String seller) {
         PreparedStatement instruction;
         int result;
-        String[] insertFields = { "nombre", "price", "stock" };
+        String[] insertFields = { "nombre", "price", "stock", "seller" };
         queryGen("INSERT INTO ", insertFields);
         try {
             instruction = conn.prepareStatement(query);
             instruction.setString(1, name);
             instruction.setDouble(2, price);
             instruction.setInt(3, stock);
+            instruction.setString(4, seller);
+            result = instruction.executeUpdate();
+            if (result > 0)
+                System.out.println("Successfully inserted new product");
+            else
+                throw new Exception("Error inserting new product");
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
+    public void insertAsk(String name, String seller) {
+        PreparedStatement instruction;
+        int result;
+        String[] insertFields = { "nombre", "askedBy" };
+        queryGen("INSERT INTO ", insertFields);
+        try {
+            instruction = conn.prepareStatement(query);
+            instruction.setString(1, name);
+            instruction.setString(2, seller);
             result = instruction.executeUpdate();
             if (result > 0)
                 System.out.println("Successfully inserted new product");
@@ -267,6 +287,10 @@ public class Conector implements Query {
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
+    }
+
+    public void close() throws SQLException {
+        conn.close();
     }
 
     @Override
