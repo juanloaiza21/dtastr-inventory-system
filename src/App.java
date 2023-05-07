@@ -64,8 +64,14 @@ public class App {
                 System.out.println("2. Update product stock");
                 System.out.println("3. Update product price");
                 System.out.println("4. Delete product");
-                System.out.println("5. Get products");
-                System.out.println("6. Exit");
+                System.out.println("5. Get all products");
+                System.out.println("6. Get all products that had been asked");
+                System.out.println("7. Get products by name");
+                System.out.println("8. Get products by Stock");
+                System.out.println("9. Get products by price");
+                System.out.println("10. Get products with price less than");
+                System.out.println("11. get products with stock less than");
+                System.out.println("12. Exit");
                 try {
                     selector = sc.nextInt();
                     switch (selector) {
@@ -85,6 +91,55 @@ public class App {
                             iMain.getAll();
                         break;
                         case 6:
+                            iMain.productAsked();
+                        break;
+                        case 7:
+                        try {
+                            System.out.println("Enter the name of the product");
+                            String name = sc.nextLine();
+                            iMain.getitemByName(name); 
+                        } catch (InputMismatchException | UnsupportedOperationException e){
+                            System.err.println("The option must be a int");
+                            sc.nextLine();
+                        }  
+                        break;   
+                        case 8:
+                        try {System.out.println("Enter the stock of the product");
+                            int name = sc.nextInt();
+                            iMain.getItemByStock(name);
+                        } catch (InputMismatchException | UnsupportedOperationException e){
+                            System.err.println("The option must be a int");
+                            sc.nextLine();
+                        }  
+                        break; 
+                        case 9:
+                        try {System.out.println("Enter the Price of the product");
+                            Double name = sc.nextDouble();
+                            iMain.getItemByPrice(name);
+                        } catch (InputMismatchException | UnsupportedOperationException e){
+                            System.err.println("The option must be a int");
+                            sc.nextLine();
+                        }  
+                        break;
+                        case 10:
+                        try {System.out.println("Enter the price of the product");
+                            Double name = sc.nextDouble();
+                            iMain.getItemByPriceLess(name);
+                        } catch (InputMismatchException | UnsupportedOperationException e){
+                            System.err.println("The option must be a int");
+                            sc.nextLine();
+                        }  
+                        break;   
+                        case 11:
+                        try {System.out.println("Enter the Stock of the product");
+                            int name = sc.nextInt();
+                            iMain.getItemByStockLess(name);
+                        } catch (InputMismatchException | UnsupportedOperationException e){
+                            System.err.println("The option must be a int");
+                            sc.nextLine();
+                        }  
+                        break; 
+                        case 12:
                             System.exit(0);
                         break;
                         default:
@@ -106,7 +161,12 @@ public class App {
                 System.out.println("2. Make a devolution");
                 System.out.println("3. Ask for a product");
                 System.out.println("4. Get products");
-                System.out.println("5. Exit");
+                System.out.println("5. Get products by name");
+                System.out.println("6. Get products by Stock");
+                System.out.println("7. Get products by price");
+                System.out.println("8. Get products with price less than");
+                System.out.println("9. get products with stock less than");
+                System.out.println("10. Exit");
                 try {
                     selector = sc.nextInt();
                     switch (selector) {
@@ -122,7 +182,53 @@ public class App {
                         case 4:
                             iMain.getAll();
                          break;
-                        case 5:
+                         case 5:
+                         try {
+                             System.out.println("Enter the name of the product");
+                             String name = sc.nextLine();
+                             iMain.getitemByName(name); 
+                         } catch (InputMismatchException | UnsupportedOperationException e){
+                             System.err.println("The option must be a int");
+                             sc.nextLine();
+                         }  
+                         break;   
+                         case 6:
+                         try {System.out.println("Enter the stock of the product");
+                             int name = sc.nextInt();
+                             iMain.getItemByStock(name);
+                         } catch (InputMismatchException | UnsupportedOperationException e){
+                             System.err.println("The option must be a int");
+                             sc.nextLine();
+                         }  
+                         break; 
+                         case 7:
+                         try {System.out.println("Enter the Price of the product");
+                             Double name = sc.nextDouble();
+                             iMain.getItemByPrice(name);
+                         } catch (InputMismatchException | UnsupportedOperationException e){
+                             System.err.println("The option must be a int");
+                             sc.nextLine();
+                         }  
+                         break;
+                         case 8:
+                         try {System.out.println("Enter the price of the product");
+                             Double name = sc.nextDouble();
+                             iMain.getItemByPriceLess(name);
+                         } catch (InputMismatchException | UnsupportedOperationException e){
+                             System.err.println("The option must be a int");
+                             sc.nextLine();
+                         }  
+                         break;   
+                         case 9:
+                         try {System.out.println("Enter the Stock of the product");
+                             int name = sc.nextInt();
+                             iMain.getItemByStockLess(name);
+                         } catch (InputMismatchException | UnsupportedOperationException e){
+                             System.err.println("The option must be a int");
+                             sc.nextLine();
+                         }  
+                         break; 
+                        case 10:
                             System.exit(0);
                         break;
                         default:
