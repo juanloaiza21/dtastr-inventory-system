@@ -9,7 +9,7 @@ import item.*;
  */
 public class App {
     
-    public static void main(String[] args) throws SQLException{
+    public static void main(String[] args) throws SQLException, InterruptedException{
         Main main = new Main();
         item.Main iMain;
         Scanner sc = new Scanner(System.in);
@@ -92,12 +92,14 @@ public class App {
                         break;
                         case 6:
                             iMain.productAsked();
+                            Thread.sleep(1000);
                         break;
                         case 7:
                         try {
                             System.out.println("Enter the name of the product");
                             String name = sc.nextLine();
                             iMain.getitemByName(name); 
+                            Thread.sleep(1000);
                         } catch (InputMismatchException | UnsupportedOperationException e){
                             System.err.println("The option must be a int");
                             sc.nextLine();
@@ -107,6 +109,7 @@ public class App {
                         try {System.out.println("Enter the stock of the product");
                             int name = sc.nextInt();
                             iMain.getItemByStock(name);
+                            Thread.sleep(1000);
                         } catch (InputMismatchException | UnsupportedOperationException e){
                             System.err.println("The option must be a int");
                             sc.nextLine();
@@ -125,6 +128,7 @@ public class App {
                         try {System.out.println("Enter the price of the product");
                             Double name = sc.nextDouble();
                             iMain.getItemByPriceLess(name);
+                            Thread.sleep(1000);
                         } catch (InputMismatchException | UnsupportedOperationException e){
                             System.err.println("The option must be a int");
                             sc.nextLine();
@@ -134,6 +138,7 @@ public class App {
                         try {System.out.println("Enter the Stock of the product");
                             int name = sc.nextInt();
                             iMain.getItemByStockLess(name);
+                            Thread.sleep(1000);
                         } catch (InputMismatchException | UnsupportedOperationException e){
                             System.err.println("The option must be a int");
                             sc.nextLine();
@@ -187,6 +192,7 @@ public class App {
                              System.out.println("Enter the name of the product");
                              String name = sc.nextLine();
                              iMain.getitemByName(name); 
+                             Thread.sleep(1000);
                          } catch (InputMismatchException | UnsupportedOperationException e){
                              System.err.println("The option must be a int");
                              sc.nextLine();
@@ -196,6 +202,7 @@ public class App {
                          try {System.out.println("Enter the stock of the product");
                              int name = sc.nextInt();
                              iMain.getItemByStock(name);
+                             Thread.sleep(1000);
                          } catch (InputMismatchException | UnsupportedOperationException e){
                              System.err.println("The option must be a int");
                              sc.nextLine();
@@ -205,6 +212,7 @@ public class App {
                          try {System.out.println("Enter the Price of the product");
                              Double name = sc.nextDouble();
                              iMain.getItemByPrice(name);
+                             Thread.sleep(1000);
                          } catch (InputMismatchException | UnsupportedOperationException e){
                              System.err.println("The option must be a int");
                              sc.nextLine();
@@ -214,6 +222,7 @@ public class App {
                          try {System.out.println("Enter the price of the product");
                              Double name = sc.nextDouble();
                              iMain.getItemByPriceLess(name);
+                             Thread.sleep(1000);
                          } catch (InputMismatchException | UnsupportedOperationException e){
                              System.err.println("The option must be a int");
                              sc.nextLine();
@@ -223,6 +232,7 @@ public class App {
                          try {System.out.println("Enter the Stock of the product");
                              int name = sc.nextInt();
                              iMain.getItemByStockLess(name);
+                             Thread.sleep(1000);
                          } catch (InputMismatchException | UnsupportedOperationException e){
                              System.err.println("The option must be a int");
                              sc.nextLine();
