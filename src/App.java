@@ -2,6 +2,7 @@ import java.sql.SQLException;
 import java.util.*;
 import users.Main;
 import item.*;
+import interfaz.*;
 
 /**
  * @author Juan David Loaiza Reyes
@@ -12,6 +13,7 @@ public class App {
     public static void main(String[] args) throws SQLException{
         Main main = new Main();
         item.Main iMain;
+        LoginGUI login = new LoginGUI();
         Scanner sc = new Scanner(System.in);
         System.out.print("\033[H\033[2J");
         System.out.flush();
