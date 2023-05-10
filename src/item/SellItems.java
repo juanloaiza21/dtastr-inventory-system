@@ -34,10 +34,10 @@ public class SellItems {
         while (controller) {
             try {
                 System.out.println("id of the item do u wanna buy: ");
-                String name = scan.nextLine();
+                int name = scan.nextInt();
                 System.out.println("How many: ");
                 int Amount = scan.nextInt();
-                ItemA itemToSell = item.getItem(filter.filterBySpecificIdName(name));
+                ItemA itemToSell = item.getItem(name);
                 if (itemToSell != null) {
                     if (itemToSell.getStock() >= Amount) {
                         itemToSell.setStock(itemToSell.getStock() - Amount);
@@ -65,6 +65,15 @@ public class SellItems {
         LinkedList<Integer> data = new LinkedList<>();
         data.add(itemToSell.getStock());
         conector.updateInt(data, new String[] { "stock" }, itemToSell.getId());
+    }
+
+    public static void main(String[] args) {
+        try {
+            SellItems sell = new SellItems();
+            sell.Selling();
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
     }
 
 }

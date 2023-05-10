@@ -41,7 +41,6 @@ public class AskProducts {
                     scan.nextLine();
                     data.add(new Item(0, name, 0, 0, seller));
                     adding(data);
-                    scan.nextLine();
                     controller = false;
                 } else {
                     System.out.println("Incorrect Option");
@@ -52,8 +51,6 @@ public class AskProducts {
                 scan.nextLine();
             }
         }
-
-        scan.close();
     }
 
     private void adding(Queue<Item> data) throws SQLException {
@@ -91,6 +88,6 @@ public class AskProducts {
 
     public static void main(String[] args) throws SQLException {
         AskProducts askProducts = new AskProducts("Juan");
-        System.out.println(askProducts.getAsk());
+        askProducts.Asking();
     }
 }

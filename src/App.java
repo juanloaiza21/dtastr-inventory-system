@@ -97,6 +97,7 @@ public class App {
                         case 7:
                         try {
                             System.out.println("Enter the name of the product");
+                            sc.nextLine();
                             String name = sc.nextLine();
                             iMain.getitemByName(name); 
                             Thread.sleep(1000);
@@ -190,6 +191,7 @@ public class App {
                          case 5:
                          try {
                              System.out.println("Enter the name of the product");
+                             sc.nextLine();
                              String name = sc.nextLine();
                              iMain.getitemByName(name); 
                              Thread.sleep(1000);
