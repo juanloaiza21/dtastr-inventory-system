@@ -30,19 +30,19 @@ public class SellItems {
         }
     }
     /**
-     * True represents that the item have been sold, false means that no
+     * If items is returned means succesfully done.
      * @param id
      * @param amount
-     * @return Boolean
+     * @return ItemA
      */
-    public boolean selling(int id, int amount) {
+    public ItemA selling(int id, int amount) {
             try {
                 ItemA itemToSell = item.getItem(id);
                 if (itemToSell != null) {
                     if (itemToSell.getStock() >= amount) {
                         itemToSell.setStock(itemToSell.getStock() - amount);
                         updateStock(itemToSell);
-                        return true;
+                        return itemToSell;
                     } else {
                         throw new LimitExceededException("There are not enough stock! ");
                     }
@@ -52,7 +52,7 @@ public class SellItems {
             } catch (InputMismatchException | SQLException | LimitExceededException e) {
                 System.err.println(e.getMessage());
             }
-            return false;
+            return null;
     }
 
     private void updateStock(ItemA itemToSell) throws SQLException {

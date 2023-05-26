@@ -29,75 +29,61 @@ public class Main implements mainInterface {
     }
 
     @Override
-    public void updateProductStock() {
-        Scanner sc = new Scanner(System.in);
+    public ItemA updateProductStock(int id, int stock) {
         LinkedList<Integer> data = new LinkedList<>();
-        while (true) {
-            try {
-                System.out.println("Enter the product id to update stock");
-                int id = sc.nextInt();
-                System.out.println("Enter the new stock");
-                data.add(sc.nextInt());
-                conector.connect();
-                conector.updateInt(data, new String[] { "stock" }, id);
-                System.out.println("Updated correctly");
-                break;
-            } catch (InputMismatchException | SQLException e) {
-                System.err.println(e.getMessage());
-                sc.nextLine();
-            }
-
+        data.add(id);
+        data.add(stock);
+        try {
+            Item it = new Item(0, null, 0, 0,"");
+            conector.connect();
+            conector.updateInt(data, new String[] { "stock" }, id);
+            System.out.println("Updated correctly");
+            it.getItem(id).stock = stock;
+            return it.getItem(id);
+        } catch (InputMismatchException | SQLException e) {
+            System.err.println(e.getMessage());
         }
+        return null;
     }
 
     @Override
-    public void updateProductPrice() {
-        Scanner sc = new Scanner(System.in);
+    public ItemA updateProductPrice(int id, int price) {
         LinkedList<Integer> data = new LinkedList<>();
-        while (true) {
-            try {
-                System.out.println("Enter the product id to update stock");
-                int id = sc.nextInt();
-                System.out.println("Enter the new price");
-                data.add(sc.nextInt());
-                conector.connect();
-                conector.updateInt(data, new String[] { "price" }, id);
-                System.out.println("Updated correctly");
-                break;
-            } catch (InputMismatchException | SQLException e) {
-                System.err.println(e.getMessage());
-                sc.nextLine();
-            }
-
+        data.add(id);
+        data.add(price);
+        try {
+            Item it = new Item(0, null, 0, 0,"");
+            conector.connect();
+            conector.updateInt(data, new String[] { "price" }, id);
+            it.getItem(id).price = price;
+            return it.getItem(id);
+        } catch (InputMismatchException | SQLException e) {
+            System.err.println(e.getMessage());
         }
+        return null;
     }
 
     @Override
-    public void deleteProduct() {
-        Scanner sc = new Scanner(System.in);
-        while (true) {
-            try {
-                System.out.println("Enter the product id to delete");
-                int id = sc.nextInt();
-                conector.connect();
-                conector.deleteOne(id);
-                break;
-            } catch (InputMismatchException  | SQLException e) {
-                // TODO: handle exception
-                System.err.println(e.getMessage());
-                sc.nextLine();
-            } 
+    public ItemA deleteProduct(int id) {
+        try{
+            Item it = new Item(0, null, 0, 0,"");
+            conector.connect();
+            conector.deleteOne(id);
+            return it.getItem(id);
+        } catch ( NullPointerException | SQLException e) {
+            System.err.println(e.getMessage());
         }
+        return null; 
     }
 
     @Override
-    public void sellItem() {
-        sell.Selling();
+    public ItemA sellItem(int id, int amount) {
+        return sell.selling(id, amount);
     }
 
     @Override
-    public void devolution() {
-        devolution.devolution();
+    public ItemA devolution(int id, int amount) {
+        return devolution.devolution(id, amount);
     }
 
     @Override
@@ -123,89 +109,48 @@ public class Main implements mainInterface {
     }
 
     @Override
-    public void getItemByStock(int stock) {
-        try {
-            filter.getItemByStock(stock);
-        } catch (Exception e) {
-            // TODO: handle exception
-            System.out.println("Producto no encontrado");
-        }
+    public ItemA getItemByStock(int stock) {
+        return filter.getItemByStock(stock);
     }
 
     @Override
-    public void getItemByPrice(double price) {
-        try {
-            filter.getItemByPrice(price);
-        } catch (Exception e) {
-            // TODO: handle exception
-            System.out.println("Producto no encontrado");
-        }
+    public ItemA getItemByPrice(double price) {
+        return filter.getItemByPrice(price);
     }
 
     @Override
-    public void itemBynameLess(String seller) {
-        try {
-            filter.getListOfItemsByNameLessThan(seller);
-        } catch (Exception e) {
-            System.out.println("Producto no encontrado");
-        }
+    public ItemA getitemByName(String name) {
+        return filter.getItemByName(name);
     }
 
     @Override
-    public void getItemByStockLess(int stock) {
-        try {
-            filter.getListOfItemsByStockLessThan(stock);
-        } catch (Exception e) {
-            // TODO: handle exception
-            System.out.println("Producto no encontrado");
-        }
+    public LinkedList<ItemA> itemBynameLess(String seller) {
+        return filter.getListOfItemsByNameLessThan(seller);
     }
 
     @Override
-    public void getItemByPriceLess(double price) {
-        try {
-            filter.getListOfItemsByPriceLessThan(price);
-        } catch (Exception e) {
-            // TODO: handle exception
-            System.out.println("Producto no encontrado");
-        }
+    public LinkedList<ItemA> getItemByStockLess(int stock) {
+        return filter.getListOfItemsByStockLessThan(stock);
     }
 
     @Override
-    public void itemBynameGreater(String name) {
-        try {
-            filter.getItemByNameGreatherThan(name);
-        } catch (Exception e) {
-            System.out.println("Producto no encontrado");
-        }
+    public LinkedList<ItemA> getItemByPriceLess(double price) {
+        return filter.getListOfItemsByPriceLessThan(price);
     }
 
     @Override
-    public void getItemByPriceGreater(double price) {
-        try {
-            filter.getItemByPriceGreatherThan(price);
-        } catch (Exception e) {
-            System.out.println("Producto no encontrado");
-        }
+    public ItemA itemBynameGreater(String name) {
+        return filter.getItemByNameGreatherThan(name);
     }
 
     @Override
-    public void getItemByStockGreater(int stock) {
-        try {
-            filter.getItemByStockGreatherThan(stock);
-        } catch (Exception e) {
-            System.out.println("Producto no encontrado");
-        }
+    public ItemA getItemByPriceGreater(double price) {
+        return filter.getItemByPriceGreatherThan(price);
     }
 
     @Override
-    public void getitemByName(String name) {
-        try {
-            filter.getItemByName(name);
-        } catch (Exception e) {
-            // TODO: handle exception
-            System.out.println("Producto no encontrado");
-        }
+    public ItemA getItemByStockGreater(int stock) {
+        return filter.getItemByStockGreatherThan(stock);
     }
     
 }
