@@ -2,15 +2,19 @@ package item;
 
 import java.sql.*;
 import java.util.*;
+
+import javax.naming.LimitExceededException;
+
 import db.Conector;
 
 /**
  * @author john pastor
  *         Class SellItems
+ * @update 26/05.2023
+ * @updatedBy Juan Loaiza
  */
 
 public class SellItems {
-    private ItemFilter filter;
     private Conector conector;
     private Item item;
     private ItemA[] items;
@@ -24,40 +28,31 @@ public class SellItems {
         for (int i = 0; i < items.length; i++) {
             items[i] = item.getItems().get(i);
         }
-        filter = new ItemFilter(items);
     }
-
-    public void Selling() {
-
-        Scanner scan = new Scanner(System.in);
-        Boolean controller = true;
-        while (controller) {
+    /**
+     * True represents that the item have been sold, false means that no
+     * @param id
+     * @param amount
+     * @return Boolean
+     */
+    public boolean selling(int id, int amount) {
             try {
-                System.out.println("id of the item do u wanna buy: ");
-                int name = scan.nextInt();
-                System.out.println("How many: ");
-                int Amount = scan.nextInt();
-                ItemA itemToSell = item.getItem(name);
+                ItemA itemToSell = item.getItem(id);
                 if (itemToSell != null) {
-                    if (itemToSell.getStock() >= Amount) {
-                        itemToSell.setStock(itemToSell.getStock() - Amount);
-                        System.out.println("Product selled: " + itemToSell.getName());
-                        System.out.println("Thanks for your purchase");
+                    if (itemToSell.getStock() >= amount) {
+                        itemToSell.setStock(itemToSell.getStock() - amount);
                         updateStock(itemToSell);
-                        controller = false;
+                        return true;
                     } else {
-                        System.out.println("There are not enough stock! ");
-                        controller = false;
+                        throw new LimitExceededException("There are not enough stock! ");
                     }
                 } else {
-                    System.out.println("Item not Found!");
-                    controller = false;
+                    throw new InputMismatchException("The item does not exist! ");
                 }
-            } catch (InputMismatchException | SQLException e) {
+            } catch (InputMismatchException | SQLException | LimitExceededException e) {
                 System.err.println(e.getMessage());
-                scan.nextLine();
             }
-        }
+            return false;
     }
 
     private void updateStock(ItemA itemToSell) throws SQLException {
@@ -65,15 +60,6 @@ public class SellItems {
         LinkedList<Integer> data = new LinkedList<>();
         data.add(itemToSell.getStock());
         conector.updateInt(data, new String[] { "stock" }, itemToSell.getId());
-    }
-
-    public static void main(String[] args) {
-        try {
-            SellItems sell = new SellItems();
-            sell.Selling();
-        } catch (SQLException e) {
-            System.err.println(e.getMessage());
-        }
     }
 
 }
