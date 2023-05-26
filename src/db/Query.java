@@ -1,4 +1,5 @@
 package db;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
@@ -15,9 +16,10 @@ public interface Query {
     
     /**
      * Get all data in a table throught the console
+     * @return 
      * @implNote This method has as default the table you set on constructor
      */
-    void getAll();
+    Object getAll();
 
     /**
      * Set a new table as default
@@ -28,9 +30,10 @@ public interface Query {
     /**
      * Get one element in a table throught the console
      * @param id int. The id you are watching for
+     * @return 
      * @implNote This method has as default the table you set on constructor
      */
-    void getOne(int id);
+    ResultSet getOne(int id);
 
     /**
      * Get one element in a table throught the console

@@ -35,46 +35,22 @@ public class Main {
 
     /**
      * Create an user
+     * @param idUser
+     * @param name
+     * @param email
+     * @param cellPhone
+     * @param typeUser Must be "SELLER" or "USER"
+     * @param password
+     * @throws SQLException
      */
-    public void createUser(){
+    public void createUser(String idUser, String name, String email, String cellphone, String typeUser, String password){
         try {
-            Scanner sc = new Scanner(System.in);
-            Boolean validator = true;
-            String[] data = new String[6];
-            System.out.println("Enter the id of the user ");
-            while (validator) {
-                try {
-                    data[0] = Integer.toString(sc.nextInt());
-                    validator = false;
-                } catch (InputMismatchException e) {
-                    System.err.println("The id must be a number");
-                    sc.nextLine();
-                }
+            String[] data = new String[] {idUser, name.toUpperCase(), email, cellphone, typeUser.toUpperCase(), password};
+            if (data[4].equals("SELLER") || data[4].equals("USER")) {
+                user.createUser(data);
+            } else {
+                throw new IllegalArgumentException("The type of user must be 'SELLER' or 'USER'");
             }
-            validator = true;
-            System.out.println("Enter the name of the user ");
-            sc.nextLine();
-            data[1] = sc.nextLine();
-            System.out.println("Enter the email of the user ");
-            data[2] = sc.nextLine();
-            System.out.println("Enter the cellphone of the user ");
-            data[3] = sc.nextLine();
-            System.out.println("Enter 1 if the user its seller, enter 2 if its an normal user");
-            while (validator) {
-                try {
-                    int aux = sc.nextInt();
-                    if (aux==1) data[4] = "SELLER";
-                    else if (aux==2) data[4] = "USER";
-                    validator = false;
-                } catch (InputMismatchException e) {
-                    System.out.println("Wrong input, must be 1 or 2 ");
-                    sc.nextLine();
-                }
-            }
-            sc.nextLine();
-            System.out.println("Enter the password of the user ");
-            data[5] = sc.nextLine();
-            user.createUser(data);
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
@@ -82,20 +58,17 @@ public class Main {
 
     /**
      * Get an user
+     * @param id
+     * @throws SQLException
      */
-    public void getUser(){
+    public User getUser(int id){
+        User data = null;
         try {
-            Scanner sc = new Scanner(System.in);
-            System.out.println("Enter the id of the user ");
-            int id = sc.nextInt();
-            try {
-               user.getOneUser(id);
-            } catch (Exception e) {
-                System.err.println("The id must be a number");
-            }
+            data =  user.getOneUser(id);
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
+        return data;
     }
 
     /**
@@ -108,34 +81,26 @@ public class Main {
 
     /**
      * Update the password of an user
+     * @param email
+     * @param password
      */
-    public void updatePass(){
+    public void updatePass(String email, String password){
         try {
-        String[] data = new String[2];
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Enter the email of the user ");
-        String email = sc.nextLine();
-            data[0] = user.getByEmail(email);
-            System.out.println("Enter the new password ");
-            data[1] = sc.nextLine();
-            user.updateUser(data, true);
+        String[] data = new String[] {user.getByEmail(email), password};
+        user.updateUser(data, true);
         } catch (NumberFormatException | SQLException e) {
-            // TODO Auto-generated catch block
             System.err.println(e.getMessage());
         }
     }
 
-    /*
+    /**
      * Bool that represents the login an user
+     * @param email
+     * @param password
     */
-    public void login() {
+    public void login(String email, String password) {
         try {
-            Scanner sc = new Scanner(System.in);
-            System.out.println("Enter the email of the user ");
-            email = sc.nextLine();
-            System.out.println("Enter the password of the user ");
-            String pass = sc.nextLine();
-            user.login(email, pass);
+            user.login(email, password);
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
@@ -147,12 +112,11 @@ public class Main {
     /**
      * Delete an user
      * @throws SQLException
+     * @param id
      */
-    public void deleteUser() throws SQLException {
+    public void deleteUser(int id) throws SQLException {
         try {
-            Scanner sc = new Scanner(System.in);
-            System.out.println("Enter the id of the user ");
-            user.deleteUser(sc.nextInt());
+            user.deleteUser(id);
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }

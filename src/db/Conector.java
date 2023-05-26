@@ -3,6 +3,8 @@ package db;
 import java.sql.*;
 import java.util.LinkedList;
 
+import javax.naming.spi.DirStateFactory.Result;
+
 /**
  * Class that generates the connection and functionalities on the db
  * 
@@ -51,28 +53,8 @@ public class Conector implements Query {
         this.table = table;
     }
 
-    // TODO parse PRODUCTS
     @Override
-    public void getAll() {
-        query = "SELECT * FROM ";
-        PreparedStatement instruction;
-        ResultSet result;
-        try {
-            instruction = conn.prepareStatement(query + " " + table + ";");
-            result = instruction.executeQuery();
-            if (table == "USERS") {
-                userParse(result);
-            } else if (table == "PRODUCTS") {
-                productParse(result);
-            } else {
-                System.out.println("No data");
-            }
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
-        }
-    }
-
-    public ResultSet getAllResultSet() {
+    public ResultSet getAll() {
         query = "SELECT * FROM ";
         PreparedStatement instruction;
         ResultSet result = null;
@@ -86,24 +68,18 @@ public class Conector implements Query {
     }
 
     @Override
-    public void getOne(int id) {
+    public ResultSet getOne(int id) {
         query = "SELECT * FROM ";
         PreparedStatement instruction;
-        ResultSet result;
+        ResultSet result = null;
         try {
             instruction = conn.prepareStatement(query + " " + table + " WHERE id = ?;");
             instruction.setInt(1, id);
             result = instruction.executeQuery();
-            if (table == "USERS") {
-                userParse(result);
-            } else if (table == "PRODUCTS") {
-                productParse(result);
-            } else {
-                System.out.println("No data");
-            }
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
+        return result;
     }
 
     @Override

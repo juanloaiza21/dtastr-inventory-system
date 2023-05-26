@@ -72,7 +72,7 @@ public class AskProducts {
         LinkedList<ItemA> items = new LinkedList<>();
         try {
             conector.connect();
-            ResultSet result = conector.getAllResultSet();
+            ResultSet result = conector.getAll();
             while (result.next()) {
                 int id = result.getInt("id");
                 String name2 = result.getString("nombre");

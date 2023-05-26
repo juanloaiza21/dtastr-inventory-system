@@ -32,7 +32,7 @@ public class Item extends ItemA{
         LinkedList<ItemA> items = new LinkedList<>();
         try {
             conector.connect();
-            ResultSet result = conector.getAllResultSet();
+            ResultSet result = conector.getAll();
             while (result.next()) { // result.next() = true while there are more items,
                 // to create an object "Item" with the data and add it to the list
                 int id = result.getInt("id"); // "id" or 1
