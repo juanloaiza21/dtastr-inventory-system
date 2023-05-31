@@ -12,7 +12,7 @@ public interface mainInterface {
     /**
      * Add a prduct trought console
      */
-    void addProduct() throws SQLException;
+    void addProduct(String name) throws SQLException;
     /**
      * Update stock trought console
      */
@@ -33,7 +33,7 @@ public interface mainInterface {
 
     ItemA devolution(int id, int amount);
 
-    void productAsk() throws SQLException;
+    void productAsk(String name) throws SQLException;
 
     void productAsked() throws SQLException;
 
