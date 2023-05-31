@@ -27,6 +27,11 @@ public class UserFun extends UsersFunctions {
         return typeUser;
     }
 
+    /**
+     * @param email
+     * @param password
+     * @throws SQLException
+     */
     public void login(String email, String password) throws SQLException {
         this.password = password;
         conector.connect();

@@ -1,4 +1,5 @@
 package users;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 import db.Conector;
@@ -140,9 +141,15 @@ public abstract class UsersFunctions {
      * Get all users
      * @throws SQLException
      */
-    public void getAllUsers() throws SQLException {
+    public LinkedList<User> getAllUsers() throws SQLException {
         conector.connect();
-        conector.getAll();
+        ResultSet data = conector.getAll();
+        LinkedList<User> users = new LinkedList<User>();
+        while (data.next()) {
+            User user = new User(data.getInt("id"), data.getString("nombre"), data.getString("email"), data.getString("cellphone"), data.getString("rol"), "*******");
+            users.add(user);
+        }
+        return users;
     }
 
     /**
@@ -150,8 +157,9 @@ public abstract class UsersFunctions {
      * @param id
      * @throws SQLException
      */
-    public void getOneUser(int id) throws SQLException {
+    public User getOneUser(int id) throws SQLException {
         conector.connect();
-        conector.getOne(id);
+        ResultSet data = conector.getOne(id);
+        return new User(data.getInt("id"), data.getString("nombre"), data.getString("email"), data.getString("cellphone"), data.getString("rol"), "*******");
     }
 } 

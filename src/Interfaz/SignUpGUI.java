@@ -1,12 +1,18 @@
 package interfaz;
 
 import java.awt.*;
+import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
+import users.UMain;
 
-public class SignUpGUI extends JFrame {
+public class SignUpGUI extends JFrame  implements ActionListener {
+    private UMain main; 
+    private LoginGUI lGUI; 
 
-    public SignUpGUI() {
+    public SignUpGUI(LoginGUI lGUI, UMain main) {
+        this.lGUI=lGUI;
+        this.main=main;
         // Configuración de la ventana principal
         setTitle("Registro de usuario");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -119,12 +125,27 @@ public class SignUpGUI extends JFrame {
         constraints.gridwidth = 2;
         constraints.insets = new Insets(20, 10, 10, 10);
         panel.add(buttonsPanel, constraints);
+
+        createButton.addActionListener(this);
+        backButton.addActionListener(this);
     
         // Configuración del panel principal
         setContentPane(panel);
         pack();
         setResizable(false);
         setVisible(true);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String command = e.getActionCommand();
+        
+        if (command.equals("Atrás")) {
+            this.dispose();
+        }
+        if (command.equals("Crear")) {
+
+        }
     }
 }
     

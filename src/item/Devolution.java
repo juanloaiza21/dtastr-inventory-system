@@ -16,33 +16,27 @@ public class Devolution {
         conector.setTable("PRODUCTS");
     }
 
-    public void devolution() {
-        Scanner scan = new Scanner(System.in);
-        Boolean controller = true;
-        while (controller) {
+    /**
+     * @param id
+     * @param amount
+     * @return ItemA updated if return is null means somenthing went wrong
+     */
+    public ItemA devolution(int id, int amount) {
             try {
                 Item it = new Item(0, null, 0, 0,"");
                 it.getItems();
-                System.out.println("ID of the item: ");
-                int id = scan.nextInt();
                 ItemA itemToReturn = it.getItem(id);
                 if (itemToReturn != null) {
-                    System.out.println("How many: ");
-                    int Amount = scan.nextInt();
-                    itemToReturn.setStock(itemToReturn.getStock() + Amount);
-                    System.out.println("Product returned: " + itemToReturn.getName());
-                    System.out.println("Thanks for your visit");
+                    itemToReturn.setStock(itemToReturn.getStock() + amount);
                     updateStock(itemToReturn);
-                    controller = false;
+                    return itemToReturn;
                 } else {
-                    System.out.println("Item not Found!");
-                    controller = false;
-                }
-            } catch (InputMismatchException | SQLException e) {
-                System.out.println(e.getMessage());
-                scan.nextLine();
-               }   
+                    throw new InputMismatchException("The item does not exist! ");
+            }
+        } catch (InputMismatchException | SQLException e) {
+            System.out.println(e.getMessage());
         }
+        return null;   
     }
 
     private void updateStock(ItemA itemToSell) throws SQLException {

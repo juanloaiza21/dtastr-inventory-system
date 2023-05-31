@@ -5,19 +5,19 @@ import java.awt.event.*;
 import javax.swing.*;
 import users.UMain;
 
-public class UpdateProductGUI extends JFrame implements ActionListener{
+public class BuyProductGUI extends JFrame implements ActionListener{
     
     private JTextField nameField;
     private JTextField priceField;
     private JTextField idField;
     private UMain main;
-    private SellerGUI sellGUI;
+    private UserGUI useGUI;
 
-    public UpdateProductGUI(SellerGUI sellGUI, UMain main) {
+    public BuyProductGUI(UserGUI useGUI, UMain main) {
         this.main=main;
-        this.sellGUI=sellGUI;
+        this.useGUI=useGUI;
         // Configuración de la ventana
-        setTitle("Actualizar Producto");
+        setTitle("Comprar Producto");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setResizable(false);
         setSize(400, 250);
@@ -68,24 +68,24 @@ public class UpdateProductGUI extends JFrame implements ActionListener{
         panel.add(priceField, constraints);
 
         // Label y TextField para Stock
-        JLabel stockLabel = new JLabel("Stock:");
+        JLabel quantLabel = new JLabel("Quantity:");
         constraints.insets = new Insets(10, 10, 0, 10);
         constraints.gridx = 0;
         constraints.gridy = 3;
-        panel.add(stockLabel, constraints);
+        panel.add(quantLabel, constraints);
 
-        SpinnerModel stockModel = new SpinnerNumberModel(0, 0, Integer.MAX_VALUE, 1);
-        JSpinner stockSpinner = new JSpinner(stockModel);
-        JComponent editor = stockSpinner.getEditor();
+        SpinnerModel quantModel = new SpinnerNumberModel(0, 0, Integer.MAX_VALUE, 1);
+        JSpinner quantSpinner = new JSpinner(quantModel);
+        JComponent editor = quantSpinner.getEditor();
         JFormattedTextField spinnerTextField = ((JSpinner.DefaultEditor) editor).getTextField();
         spinnerTextField.setColumns(1); 
         constraints.insets = new Insets(10, 0, 0, 10);       
         constraints.gridx = 1;
         constraints.gridy = 3;
-        panel.add(stockSpinner, constraints);
+        panel.add(quantSpinner, constraints);
 
         // Botones para crear el producto y volver atrás
-        JButton actionsButton = new JButton("Actualizar");
+        JButton actionsButton = new JButton("Buy");
         constraints.gridx = 0;
         constraints.gridy = 4;
         constraints.insets = new Insets(20, 10, 10, 10);
@@ -107,7 +107,7 @@ public class UpdateProductGUI extends JFrame implements ActionListener{
         constraints.anchor = GridBagConstraints.CENTER;
         constraints.insets = new Insets(20, 10, 10, 10);
         panel.add(buttonPanel, constraints);
-
+        
         actionsButton.addActionListener(this);
         backButton.addActionListener(this);
 

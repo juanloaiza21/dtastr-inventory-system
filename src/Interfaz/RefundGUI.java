@@ -5,19 +5,19 @@ import java.awt.event.*;
 import javax.swing.*;
 import users.UMain;
 
-public class UpdateProductGUI extends JFrame implements ActionListener{
+public class RefundGUI  extends JFrame implements ActionListener{
     
     private JTextField nameField;
     private JTextField priceField;
     private JTextField idField;
     private UMain main;
-    private SellerGUI sellGUI;
+    private UserGUI useGUI;
 
-    public UpdateProductGUI(SellerGUI sellGUI, UMain main) {
+    public RefundGUI(UserGUI useGUI, UMain main) {
         this.main=main;
-        this.sellGUI=sellGUI;
+        this.useGUI=useGUI;
         // Configuración de la ventana
-        setTitle("Actualizar Producto");
+        setTitle("refund");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setResizable(false);
         setSize(400, 250);
@@ -54,46 +54,33 @@ public class UpdateProductGUI extends JFrame implements ActionListener{
         constraints.gridy = 1;
         panel.add(nameField, constraints);
 
-        // Label y TextField para Price
-        JLabel priceLabel = new JLabel("Precio:");
-        constraints.insets = new Insets(10, 10, 0, 10);
-        constraints.gridx = 0;
-        constraints.gridy = 2;
-        panel.add(priceLabel, constraints);
-
-        priceField = new JTextField();
-        constraints.insets = new Insets(10, 0, 0, 10);
-        constraints.gridx = 1;
-        constraints.gridy = 2;
-        panel.add(priceField, constraints);
-
         // Label y TextField para Stock
-        JLabel stockLabel = new JLabel("Stock:");
+        JLabel refundLabel = new JLabel("Quantity:");
         constraints.insets = new Insets(10, 10, 0, 10);
         constraints.gridx = 0;
-        constraints.gridy = 3;
-        panel.add(stockLabel, constraints);
+        constraints.gridy = 2;
+        panel.add(refundLabel, constraints);
 
-        SpinnerModel stockModel = new SpinnerNumberModel(0, 0, Integer.MAX_VALUE, 1);
-        JSpinner stockSpinner = new JSpinner(stockModel);
-        JComponent editor = stockSpinner.getEditor();
+        SpinnerModel refundModel = new SpinnerNumberModel(0, 0, Integer.MAX_VALUE, 1);
+        JSpinner refundSpinner = new JSpinner(refundModel);
+        JComponent editor = refundSpinner.getEditor();
         JFormattedTextField spinnerTextField = ((JSpinner.DefaultEditor) editor).getTextField();
         spinnerTextField.setColumns(1); 
         constraints.insets = new Insets(10, 0, 0, 10);       
         constraints.gridx = 1;
-        constraints.gridy = 3;
-        panel.add(stockSpinner, constraints);
+        constraints.gridy = 2;
+        panel.add(refundSpinner, constraints);
 
         // Botones para crear el producto y volver atrás
-        JButton actionsButton = new JButton("Actualizar");
+        JButton actionsButton = new JButton("Refund");
         constraints.gridx = 0;
-        constraints.gridy = 4;
+        constraints.gridy = 3;
         constraints.insets = new Insets(20, 10, 10, 10);
         panel.add(actionsButton, constraints);
 
         JButton backButton = new JButton("Atrás");
         constraints.gridx = 1;
-        constraints.gridy = 4;
+        constraints.gridy = 3;
         constraints.insets = new Insets(20, 10, 10, 10);
         panel.add(backButton, constraints);
 
@@ -102,7 +89,7 @@ public class UpdateProductGUI extends JFrame implements ActionListener{
         buttonPanel.add(actionsButton);
         buttonPanel.add(backButton);
         constraints.gridx = 0;
-        constraints.gridy = 5;
+        constraints.gridy = 4;
         constraints.gridwidth = 2;
         constraints.anchor = GridBagConstraints.CENTER;
         constraints.insets = new Insets(20, 10, 10, 10);

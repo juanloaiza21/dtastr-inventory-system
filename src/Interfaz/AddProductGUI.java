@@ -1,15 +1,22 @@
 package interfaz;
 
 import java.awt.*;
-import javax.swing.*;
+import java.awt.event.*;
 
-public class AddProductGUI extends JFrame {
+import javax.swing.*;
+import users.UMain;
+
+public class AddProductGUI extends JFrame implements ActionListener{
 
     private JTextField nameField;
     private JTextField priceField;
     private JTextField stockField;
+    private UMain main;
+    private SellerGUI sellGUI;
 
-    public AddProductGUI() {
+    public AddProductGUI(SellerGUI sellGUI, UMain main) {
+        this.main=main;
+        this.sellGUI=sellGUI;
         // Configuración de la ventana
         setTitle("Agregar Producto");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -89,10 +96,23 @@ public class AddProductGUI extends JFrame {
         constraints.insets = new Insets(20, 10, 10, 10);
         panel.add(buttonPanel, constraints);
 
+        
+        addButton.addActionListener(this);
+        backButton.addActionListener(this);
+
             // Añade el panel al JFrame
     add(panel);
 
     // Hace visible la ventana
     setVisible(true);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String command = e.getActionCommand();
+        
+        if (command.equals("Atrás")) {
+            this.dispose();
+        }
     }
 }

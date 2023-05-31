@@ -1,15 +1,22 @@
 package interfaz;
 
 import java.awt.*;
-import javax.swing.*;
+import java.awt.event.*;
 
-public class DeleteProductGUI extends JFrame {
+import javax.swing.*;
+import users.UMain;
+
+public class DeleteProductGUI extends JFrame implements ActionListener {
     
     private JTextField nameField;
     private JTextField priceField;
     private JTextField idField;
+    private UMain main;
+    private SellerGUI sellGUI;
 
-    public DeleteProductGUI() {
+    public DeleteProductGUI(SellerGUI sellGUI, UMain main) {
+        this.main=main;
+        this.sellGUI=sellGUI;
         // Configuración de la ventana
         setTitle("Elminar Producto");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -102,10 +109,23 @@ public class DeleteProductGUI extends JFrame {
         constraints.insets = new Insets(20, 10, 10, 10);
         panel.add(buttonPanel, constraints);
 
+        
+        actionsButton.addActionListener(this);
+        backButton.addActionListener(this);
+
             // Añade el panel al JFrame
     add(panel);
 
     // Hace visible la ventana
     setVisible(true);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String command = e.getActionCommand();
+        
+        if (command.equals("Atrás")) {
+            this.dispose();
+        }
     }
 }

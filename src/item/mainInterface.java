@@ -1,6 +1,7 @@
 package item;
 
 import java.sql.SQLException;
+import java.util.LinkedList;
 
 /**
  * @author Juan Loaiza
@@ -11,45 +12,48 @@ public interface mainInterface {
     /**
      * Add a prduct trought console
      */
-    void addProduct() throws SQLException;
+    void addProduct(String name) throws SQLException;
     /**
      * Update stock trought console
      */
-    void updateProductStock();
+    ItemA updateProductStock(int id, int stock);
+
     /**
      * Update price trought console
      */
-    void updateProductPrice();
+    ItemA updateProductPrice(int id, int price);
+
     /**
-     * Delete product trought console
+     * Delete product
+     * @param id
      */
-    void deleteProduct();
+    ItemA deleteProduct(int id);
 
-    void sellItem();
+    ItemA sellItem(int id, int amount);
 
-    void devolution();
+    ItemA devolution(int id, int amount);
 
-    void productAsk() throws SQLException;
+    void productAsk(String name) throws SQLException;
 
     void productAsked() throws SQLException;
 
-    void getitemByName(String name);
+    ItemA getitemByName(String name);
 
-    void getItemByStock(int stock);
+    ItemA getItemByStock(int stock);
 
-    void getItemByPrice(double price);
+    ItemA getItemByPrice(double price);
 
-    void itemBynameLess(String seller);
+    LinkedList<ItemA> itemBynameLess(String seller);
 
-    void getItemByStockLess(int stock);
+    LinkedList<ItemA> getItemByStockLess(int stock);
 
-    void getItemByPriceLess(double price);
+    LinkedList<ItemA> getItemByPriceLess(double price);
 
-    void itemBynameGreater(String name);
+    ItemA itemBynameGreater(String name);
 
-    void getItemByPriceGreater(double price);
+    ItemA getItemByPriceGreater(double price);
 
-    void getItemByStockGreater(int stock);
+    ItemA getItemByStockGreater(int stock);
 
 
 }

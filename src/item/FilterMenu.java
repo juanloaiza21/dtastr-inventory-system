@@ -20,111 +20,142 @@ public class FilterMenu {
         this.itemFilter = new ItemFilter(items);
     }
 
-    public void getItemByName(String name) {
+    /**
+     * Returns null if items does not exist else returns the item.
+     * @param name
+     * @return
+     */
+    public ItemA getItemByName(String name) {
         try {
             int index = itemFilter.filterBySpecificIdName(name);
             if (index == -1) {
-                System.out.println("No se encontro el item");
+                throw new NullPointerException("No se encontro el item");
             } else {
-                System.out.println("id: "+item.getItem(index).id+" Nombre: "+ item.getItem(index).name+ " precio: "+item.getItem(index).price+ " Stock:  "+item.getItem(index).stock + " Vendedor: " + item.getItem(index).seller);
-            }   
+                return item.getItem(index);
+            } 
         } catch (NullPointerException e ) {
             System.out.println("No se encontro el item");
+            return null;
         }
     }
 
-    public void getItemByStock(int stock) {
+    /**
+     * Returns null if items does not exist else returns the item.
+     * @param name
+     * @return
+     */
+    public ItemA getItemByStock(int stock) {
         try {
             int index = itemFilter.filterBySpecificStock(stock);
             if (index == -1) {
-                System.out.println("No se encontro el item");
+                throw new NullPointerException("No se encontro el item");
             } else {
-                System.out.println("id: "+item.getItem(index).id+" Nombre: "+ item.getItem(index).name+ " precio: "+item.getItem(index).price+ " Stock:  "+item.getItem(index).stock + " Vendedor: " + item.getItem(index).seller);
-            }   
+                return item.getItem(index);
+            } 
         } catch (NullPointerException e ) {
             System.out.println("No se encontro el item");
+            return null;
         }
     }
 
-    public void getItemByPrice(double price) {
+    /**
+     * Returns null if items does not exist else returns the item.
+     * @param name
+     * @return
+     */
+    public ItemA getItemByPrice(double price) {
         try {
             int index = itemFilter.filterBySpecificIdPrice(price);
             if (index == -1) {
-                System.out.println("No se encontro el item");
+                throw new NullPointerException("No se encontro el item");
             } else {
-                System.out.println("id: "+item.getItem(index).id+" Nombre: "+ item.getItem(index).name+ " precio: "+item.getItem(index).price+ " Stock:  "+item.getItem(index).stock + " Vendedor: " + item.getItem(index).seller);
-            }   
+                return item.getItem(index);
+            } 
         } catch (NullPointerException e ) {
             System.out.println("No se encontro el item");
+            return null;
         }
     }
 
-    
-    public void getListOfItemsByNameLessThan(String name){
+    /**
+     * Returns null if items does not exist else returns the items.
+     * @param name
+     * @return
+     */
+    public LinkedList<ItemA> getListOfItemsByNameLessThan(String name){
+        LinkedList<ItemA> items = new LinkedList<ItemA>();
         try {
             SortedMap<String, Integer> subMap = itemFilter.nameLessThan(name);
             Collection <Integer> item = subMap.values();
             for (Integer i : item) {
-                System.out.println("id: "+this.item.getItem(i).id+" Nombre: "+ this.item.getItem(i).name+ " precio: "+this.item.getItem(i).price+ " Stock:  "+this.item.getItem(i).stock + " Vendedor: " + this.item.getItem(i).seller);
+                items.add( this.item.getItem(i));
             }
         } catch (NullPointerException e ) {
-            System.out.println("No se encontro el item");
+            System.err.println("No se encontro el item");
+            items = null;
         }
+        return items;
     }
 
-    public void getListOfItemsByStockLessThan(int stock){
+    public LinkedList<ItemA> getListOfItemsByStockLessThan(int stock){
+        LinkedList<ItemA> items = new LinkedList<ItemA>();
         try {
             SortedMap<Integer, Integer> subMap = itemFilter.stockLessThan(stock);
             Collection <Integer> item = subMap.values();
             for (Integer i : item) {
-                System.out.println("id: "+this.item.getItem(i).id+" Nombre: "+ this.item.getItem(i).name+ " precio: "+this.item.getItem(i).price+ " Stock:  "+this.item.getItem(i).stock + " Vendedor: " + this.item.getItem(i).seller);
+                items.add( this.item.getItem(i));
             }
         } catch (NullPointerException e ) {
-            System.out.println("No se encontro el item");
+            System.err.println("No se encontro el item");
+            items = null;
         }
+        return items;
     }
 
-    public void getListOfItemsByPriceLessThan(double price){
+    public LinkedList<ItemA> getListOfItemsByPriceLessThan(double price){
+        LinkedList<ItemA> items = new LinkedList<ItemA>();
         try {
             SortedMap<Double, Integer> subMap = itemFilter.priceLessThan(price);
             Collection <Integer> item = subMap.values();
             for (Integer i : item) {
-                System.out.println("id: "+this.item.getItem(i).id+" Nombre: "+ this.item.getItem(i).name+ " precio: "+this.item.getItem(i).price+ " Stock:  "+this.item.getItem(i).stock + " Vendedor: " + this.item.getItem(i).seller);
+                items.add( this.item.getItem(i));
             }
         } catch (NullPointerException e ) {
-            System.out.println("No se encontro el item");
+            System.err.println("No se encontro el item");
+            items = null;
         }
+        return items;
     }
     
-    public void getItemByStockGreatherThan(int stock){
+    public ItemA getItemByStockGreatherThan(int stock){
         try {
             Entry <Integer, Integer> data = itemFilter.stockGreatherThan(stock);
-            System.out.println("id: "+this.item.getItem(data.getValue()).id+" Nombre: "+ this.item.getItem(data.getValue()).name+ " precio: "+this.item.getItem(data.getValue()).price+ " Stock:  "+this.item.getItem(data.getValue()).stock + " Vendedor: " + this.item.getItem(data.getValue()).seller);
+            return this.item.getItem(data.getValue());
         } catch (Exception e) {
-            System.out.println("No se encontro el item");
+            System.err.println("No se encontro el item");
         }
+        return null;
     }
 
-    public void getItemByNameGreatherThan(String name){
+    public ItemA getItemByNameGreatherThan(String name){
         try {
             Entry <String, Integer> data = itemFilter.nameGreatherThan(name);
-            System.out.println("id: "+this.item.getItem(data.getValue()).id+" Nombre: "+ this.item.getItem(data.getValue()).name+ " precio: "+this.item.getItem(data.getValue()).price+ " Stock:  "+this.item.getItem(data.getValue()).stock + " Vendedor: " + this.item.getItem(data.getValue()).seller);
+            return this.item.getItem(data.getValue());
         } catch (Exception e) {
-            System.out.println("No se encontro el item");
+            System.err.println("No se encontro el item");
         }
+        return null;
     }
 
-    public void getItemByPriceGreatherThan(Double price){
+
+    public ItemA getItemByPriceGreatherThan(Double price){
         try {
             Entry <Double, Integer> data = itemFilter.priceGreatherThan(price);
-            System.out.println("id: "+this.item.getItem(data.getValue()).id+" Nombre: "+ this.item.getItem(data.getValue()).name+ " precio: "+this.item.getItem(data.getValue()).price+ " Stock:  "+this.item.getItem(data.getValue()).stock + " Vendedor: " + this.item.getItem(data.getValue()).seller);
+            return this.item.getItem(data.getValue());
         } catch (Exception e) {
-            System.out.println("No se encontro el item");
+            System.err.println("No se encontro el item");
         }
+        return null;
     }
 
-    public static void main(String[] args) throws SQLException {
-        FilterMenu filterMenu = new FilterMenu();
-        filterMenu.getItemByStockGreatherThan(999);
-    }
 }
