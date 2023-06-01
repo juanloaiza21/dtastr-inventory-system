@@ -24,8 +24,8 @@ public class Main implements mainInterface {
     }
     
     @Override
-    public void addProduct() throws SQLException {
-        ask.Asking();
+    public void addProduct(String name) throws SQLException {
+        ask.Asking(name);
     }
 
     @Override
@@ -87,8 +87,8 @@ public class Main implements mainInterface {
     }
 
     @Override
-    public void productAsk() throws SQLException {
-        ask.Asking();
+    public void productAsk(String name) throws SQLException {
+        ask.Asking(name);
     }
 
     public void getAll() throws SQLException {
@@ -152,5 +152,6 @@ public class Main implements mainInterface {
     public ItemA getItemByStockGreater(int stock) {
         return filter.getItemByStockGreatherThan(stock);
     }
+
     
 }

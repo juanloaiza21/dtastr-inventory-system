@@ -2,6 +2,9 @@ package item;
 
 import java.sql.*;
 import java.util.*;
+
+import javax.naming.LimitExceededException;
+
 import db.Conector;
 
 /**
@@ -25,31 +28,25 @@ public class AskProducts {
         item = new Item();
     }
 
-    public void Asking() throws SQLException {
-        Scanner scan = new Scanner(System.in);
+    public Item Asking(String name) throws SQLException {
         Queue<Item> data = new LinkedList<>();
         Boolean controller = true;
+
         while (controller) {
             try {
-                System.out.println("do u wanna ask a product: 1. yes, 2. no");
-                int flag = scan.nextInt();
-                if (flag == 2) {
-                    controller = false;
-                } else if (flag == 1) {
-                    System.out.println("name:");
-                    String name = scan.next();
-                    scan.nextLine();
-                    data.add(new Item(0, name, 0, 0, seller));
-                    adding(data);
-                    controller = false;
-                } else {
-                    System.out.println("Incorrect Option");
-                }
-            } catch (InputMismatchException e) {
-                // TODO: handle exception
-                System.err.println("Must be int");
-                scan.nextLine();
+                data.add(new Item(0, name, 0, 0, seller));
+                adding(data);
+                controller = false;
+
+            } catch (InputMismatchException | SQLException e) {
+                System.err.println(e.getMessage());
             }
+        }
+
+        if (!data.isEmpty()) {
+            return data.poll();
+        } else {
+            return null; // Devuelve null si no se agregó ningún elemento a la cola
         }
     }
 
@@ -86,8 +83,4 @@ public class AskProducts {
         return items;
     }
 
-    public static void main(String[] args) throws SQLException {
-        AskProducts askProducts = new AskProducts("Juan");
-        askProducts.Asking();
-    }
 }
