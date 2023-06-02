@@ -16,44 +16,44 @@ public interface mainInterface {
     /**
      * Update stock trought console
      */
-    ItemA updateProductStock(int id, int stock);
+    String[][] updateProductStock(int id, int stock);
 
     /**
      * Update price trought console
      */
-    ItemA updateProductPrice(int id, int price);
+    String[][] updateProductPrice(int id, int price);
 
     /**
      * Delete product
      * @param id
      */
-    ItemA deleteProduct(int id);
+    String[][] deleteProduct(int id);
 
-    ItemA sellItem(int id, int amount);
+    String[][] sellItem(int id, int amount);
 
-    ItemA devolution(int id, int amount);
+    String[][] devolution(int id, int amount);
 
     void productAsk(String name) throws SQLException;
 
     void productAsked() throws SQLException;
 
-    ItemA getitemByName(String name);
+    String[][] getitemByName(String name);
 
-    ItemA getItemByStock(int stock);
+    String[][] getItemByStock(int stock);
 
-    ItemA getItemByPrice(double price);
+    String[][] getItemByPrice(double price);
 
-    LinkedList<ItemA> itemBynameLess(String seller);
+    String[][] itemBynameLess(String seller);
 
-    LinkedList<ItemA> getItemByStockLess(int stock);
+    String[][] getItemByStockLess(int stock);
 
-    LinkedList<ItemA> getItemByPriceLess(double price);
+    String[][] getItemByPriceLess(double price);
 
-    ItemA itemBynameGreater(String name);
+    String[][] itemBynameGreater(String name);
 
-    ItemA getItemByPriceGreater(double price);
+    String[][] getItemByPriceGreater(double price);
 
-    ItemA getItemByStockGreater(int stock);
+    String[][] getItemByStockGreater(int stock);
 
 
 }
