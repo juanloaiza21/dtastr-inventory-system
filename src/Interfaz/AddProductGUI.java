@@ -13,6 +13,7 @@ public class AddProductGUI extends JFrame implements ActionListener{
     private JTextField stockField;
     private UMain main;
     private SellerGUI sellGUI;
+    private JFormattedTextField spinnerTextField;
 
     public AddProductGUI(SellerGUI sellGUI, UMain main) {
         this.main=main;
@@ -65,7 +66,7 @@ public class AddProductGUI extends JFrame implements ActionListener{
         SpinnerModel stockModel = new SpinnerNumberModel(0, 0, Integer.MAX_VALUE, 1);
         JSpinner stockSpinner = new JSpinner(stockModel);
         JComponent editor = stockSpinner.getEditor();
-        JFormattedTextField spinnerTextField = ((JSpinner.DefaultEditor) editor).getTextField();
+        spinnerTextField = ((JSpinner.DefaultEditor) editor).getTextField();
         spinnerTextField.setColumns(1); 
         constraints.insets = new Insets(10, 0, 0, 10);       
         constraints.gridx = 1;
@@ -112,6 +113,12 @@ public class AddProductGUI extends JFrame implements ActionListener{
         String command = e.getActionCommand();
         
         if (command.equals("Atrás")) {
+            this.dispose();
+        }
+        
+        if (command.equals("Agregar")) {
+            if(main.addProduct(nameField.getText(),priceField.getText(),spinnerTextField.getText()))
+            sellGUI.updateTable();
             this.dispose();
         }
     }

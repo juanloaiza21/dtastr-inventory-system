@@ -11,8 +11,8 @@ public class LoginGUI extends JFrame implements ActionListener {
     private JTextField correoInput;
     private JPasswordField contrasenaInput;
 
-    public LoginGUI() {
-        this.main=new UMain();
+    public LoginGUI(UMain umain) {
+        this.main=umain;
 
         // Configuración de la ventana principal
         setTitle("Inicio de sesión");
@@ -91,8 +91,8 @@ public class LoginGUI extends JFrame implements ActionListener {
             main.login("usuario1@example.com","password123");
             if(main.getLogged()){
                 JOptionPane.showMessageDialog(this, "Login succesfull.", "Success", JOptionPane.INFORMATION_MESSAGE);
-                this.setVisible(false);
                 main.startlog(main.getEmail());
+                this.dispose();
             }else{
                 JOptionPane.showMessageDialog(this, "Login Failed.", "Fail",JOptionPane.ERROR_MESSAGE);
             }

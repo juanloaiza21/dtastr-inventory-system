@@ -4,6 +4,8 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.table.*;
 import java.awt.event.*;
+import java.sql.SQLException;
+
 import users.UMain;
 
 public class UserGUI extends JFrame implements ActionListener{
@@ -61,11 +63,12 @@ public class UserGUI extends JFrame implements ActionListener{
         setJMenuBar(menuBar);
 
         JPanel panel = new JPanel(new BorderLayout());
-        table = new JTable(new DefaultTableModel(new String[][]{
-            {"Producto 1", "10.99", "100", "usuario3@example.com"},
-            {"Producto 2", "19.99", "50", "usuario3@example.com"},
-            {"Producto 3", "15.99", "75", "usuario3@example.com"},
-        }, new Object[]{"Nombre", "Precio", "Stock", "Vendedor"}));        
+        try {
+            table = new JTable(new DefaultTableModel(main.getAllItems(), new Object[]{"ID","Nombre", "Precio", "Stock", "Vendedor"}));
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }     
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         table.setEnabled(false);
@@ -88,19 +91,84 @@ public class UserGUI extends JFrame implements ActionListener{
         } else if (command.equals("Ask for a Product")) {
             askForProduct();
         } else if (command.equals("Get Products")) {
-            //getProducts();
+            getProducts();
         } else if (command.equals("Get Products by Name")) {
-            //getProductsByName();
+            getProductsByName();
         } else if (command.equals("Get Products by Stock")) {
-            //getProductsByStock();
+            getProductsByStock();
         } else if (command.equals("Get Products by Price")) {
-            //getProductsByPrice();
+            getProductsByPrice();
         } else if (command.equals("Get Products with Price Less Than")) {
-            //getProductsLessThanPrice();
+            getProductsLessThanPrice();
         } else if (command.equals("Get Products with Stock Less Than")) {
-            //getProductsLessThanStock();
+            getProductsLessThanStock();
         } else if (command.equals("Sign Out")) {
-        //signOut();
+            signOut();
+        }
+    }
+
+    private void signOut() {
+        main.logout();
+        this.dispose();
+    }
+
+    private void getProductsLessThanStock() {
+        String[][] entrada = main.getProductsLessThanStock(Integer.valueOf(JOptionPane.showInputDialog("Type the Stock please")));
+        if(entrada.length>0){
+            updateTable(entrada);
+            JOptionPane.showMessageDialog(this, "Products updated successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+        }
+        else{
+            
+            JOptionPane.showMessageDialog(this, "Item not Found", "Error", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+
+    private void getProductsLessThanPrice() {
+        String[][] entrada = main.getProductsLessThanPrice(Double.valueOf(JOptionPane.showInputDialog("Type the Price please")));
+        if(entrada.length>0){
+            updateTable(entrada);
+            JOptionPane.showMessageDialog(this, "Products updated successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+        }
+        else{
+            
+            JOptionPane.showMessageDialog(this, "Item not Found", "Error", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+
+    private void getProductsByPrice() {
+        String[][] entrada = main.getProductsByPrice(Double.valueOf(JOptionPane.showInputDialog("Type the Price please")));
+        if(entrada.length>0){
+            updateTable(entrada);
+            JOptionPane.showMessageDialog(this, "Products updated successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+        }
+        else{
+            
+            JOptionPane.showMessageDialog(this, "Item not Found", "Error", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+
+    private void getProductsByStock() {        
+        String[][] entrada = main.getProductsByStock(Integer.valueOf(JOptionPane.showInputDialog("Type the Stock please")));
+        if(entrada.length>0){
+            updateTable(entrada);
+            JOptionPane.showMessageDialog(this, "Products updated successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+        }
+        else{
+            
+            JOptionPane.showMessageDialog(this, "Item not Found", "Error", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+
+    private void getProductsByName() {
+        String[][] entrada = main.getProductsByName(JOptionPane.showInputDialog("Type the name please"));
+        if(entrada.length>0){
+            updateTable(entrada);
+            JOptionPane.showMessageDialog(this, "Products updated successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+        }
+        else{
+            
+            JOptionPane.showMessageDialog(this, "Item not Found", "Error", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
@@ -118,14 +186,30 @@ public class UserGUI extends JFrame implements ActionListener{
     }
 
     private void updateTable(String[][] newProductsData) {
-    int rowCount = table.getRowCount();
 
-    // Actualizar los datos de la tabla con los nuevos valores
-    DefaultTableModel model = (DefaultTableModel) table.getModel();
-    model.setDataVector(newProductsData, new Object[]{"Nombre", "Precio", "Stock", "Vendedor"});
+        // Obtener el modelo de la tabla actual
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        model.setDataVector(newProductsData, new Object[]{"ID","Nombre", "Precio", "Stock", "Vendedor"});
+    }
 
-    // Mostrar mensaje de éxito
-    JOptionPane.showMessageDialog(this, "Products updated successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+    private void getProducts(){
+        try {
+            updateTable(main.getAllItems());            
+            JOptionPane.showMessageDialog(this, "Products updated successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
+        }
+    }
+
+    
+
+    public void updateTable(){
+        try {
+            updateTable(main.getAllItems());
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
 

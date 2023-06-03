@@ -2,6 +2,8 @@ package interfaz;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.SQLException;
+
 import javax.swing.*;
 import users.UMain;
 
@@ -81,6 +83,21 @@ public class AskProductGUI extends JFrame implements ActionListener{
         
         if (command.equals("Atrás")) {
             this.dispose();
+        }
+        
+        if (command.equals("Ask")) {
+            try {
+                if(main.askProduct(nameField.getText())){
+                    useGUI.updateTable();
+                    JOptionPane.showMessageDialog(this, "Product Asked successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    this.dispose();
+                }else{                
+                    JOptionPane.showMessageDialog(this, "Error", "Error", JOptionPane.INFORMATION_MESSAGE);
+                }
+            } catch (HeadlessException | SQLException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            } 
         }
     }
 }

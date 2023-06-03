@@ -9,6 +9,9 @@ import users.UMain;
 public class SignUpGUI extends JFrame  implements ActionListener {
     private UMain main; 
     private LoginGUI lGUI; 
+    private JTextField idInput,nameInput,mailInput,cellphoneInput;
+    private JPasswordField passwordInput;
+    private ButtonGroup typeGroup;
 
     public SignUpGUI(LoginGUI lGUI, UMain main) {
         this.lGUI=lGUI;
@@ -29,7 +32,7 @@ public class SignUpGUI extends JFrame  implements ActionListener {
         constraints.insets = new Insets(10, 10, 0, 10);
         panel.add(idLabel, constraints);
 
-        JTextField idInput = new JTextField(20);
+        idInput = new JTextField(20);
         constraints.gridx = 1;
         constraints.gridy = 0;
         constraints.insets = new Insets(10, 0, 0, 10);
@@ -41,7 +44,7 @@ public class SignUpGUI extends JFrame  implements ActionListener {
         constraints.insets = new Insets(10, 10, 0, 10);
         panel.add(nameLabel, constraints);
 
-        JTextField nameInput = new JTextField(20);
+        nameInput = new JTextField(20);
         constraints.gridx = 1;
         constraints.gridy = 1;
         constraints.insets = new Insets(10, 0, 0, 10);
@@ -53,7 +56,7 @@ public class SignUpGUI extends JFrame  implements ActionListener {
         constraints.insets = new Insets(10, 10, 0, 10);
         panel.add(mailLabel, constraints);
 
-        JTextField mailInput = new JTextField(20);
+        mailInput = new JTextField(20);
         constraints.gridx = 1;
         constraints.gridy = 2;
         constraints.insets = new Insets(10, 0, 0, 10);
@@ -65,7 +68,7 @@ public class SignUpGUI extends JFrame  implements ActionListener {
         constraints.insets = new Insets(10, 10, 0, 10);
         panel.add(cellphoneLabel, constraints);
 
-        JTextField cellphoneInput = new JTextField(20);
+        cellphoneInput = new JTextField(20);
         constraints.gridx = 1;
         constraints.gridy = 3;
         constraints.insets = new Insets(10, 0, 0, 10);
@@ -77,7 +80,7 @@ public class SignUpGUI extends JFrame  implements ActionListener {
         constraints.insets = new Insets(10, 10, 0, 10);
         panel.add(passwordLabel, constraints);
 
-        JPasswordField passwordInput = new JPasswordField(20);
+        passwordInput = new JPasswordField(20);
         constraints.gridx = 1;
         constraints.gridy = 4;
         constraints.insets = new Insets(10, 0, 0, 10);
@@ -91,7 +94,10 @@ public class SignUpGUI extends JFrame  implements ActionListener {
 
         JRadioButton buyerRadioButton = new JRadioButton("Comprador");
         JRadioButton sellerRadioButton = new JRadioButton("Vendedor");
-        ButtonGroup typeGroup = new ButtonGroup();
+        typeGroup = new ButtonGroup();
+        buyerRadioButton.setActionCommand("USER");
+        sellerRadioButton.setActionCommand("SELLER");
+        buyerRadioButton.setSelected(true);
         typeGroup.add(buyerRadioButton);
         typeGroup.add(sellerRadioButton);
 
@@ -141,10 +147,17 @@ public class SignUpGUI extends JFrame  implements ActionListener {
         String command = e.getActionCommand();
         
         if (command.equals("Atrás")) {
+            lGUI.setVisible(true);
             this.dispose();
         }
         if (command.equals("Crear")) {
-
+            if(main.createUser(idInput.getText(),nameInput.getText(),mailInput.getText(),cellphoneInput.getText(),typeGroup.getSelection().getActionCommand(),new String(passwordInput.getPassword() ))){
+                JOptionPane.showMessageDialog(this, "Usuario creado exitosamente", "Success", JOptionPane.INFORMATION_MESSAGE);                
+                lGUI.setVisible(true);
+                this.dispose();
+            }else{
+                JOptionPane.showMessageDialog(this, "Error: verifique la informacion e intente de nuevo", "Error", JOptionPane.WARNING_MESSAGE);
+            }
         }
     }
 }

@@ -40,7 +40,7 @@ public class Conector implements Query {
      */
     public void connect() throws SQLException {
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
+            //Class.forName("com.mysql.cj.jdbc.Driver");
             conn = (Connection) DriverManager.getConnection(url, username, password);
 
         } catch (Exception e) {
@@ -148,7 +148,7 @@ public class Conector implements Query {
 
     }
 
-    public void insertProduct(String name, double price, int stock, String seller) {
+    public Boolean insertProduct(String name, double price, int stock, String seller) {
         PreparedStatement instruction;
         int result;
         String[] insertFields = { "nombre", "price", "stock", "seller" };
@@ -160,12 +160,16 @@ public class Conector implements Query {
             instruction.setInt(3, stock);
             instruction.setString(4, seller);
             result = instruction.executeUpdate();
-            if (result > 0)
+            if (result > 0){
                 System.out.println("Successfully inserted new product");
-            else
+                return true;
+            }
+            else{
                 throw new Exception("Error inserting new product");
+            }
         } catch (Exception e) {
             System.err.println(e.getMessage());
+            return false;
         }
     }
 

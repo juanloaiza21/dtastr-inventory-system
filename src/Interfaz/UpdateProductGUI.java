@@ -10,8 +10,11 @@ public class UpdateProductGUI extends JFrame implements ActionListener{
     private JTextField nameField;
     private JTextField priceField;
     private JTextField idField;
+    private JFormattedTextField spinnerTextField;
     private UMain main;
     private SellerGUI sellGUI;
+    private JButton actionsButton;
+    private JSpinner stockSpinner;
 
     public UpdateProductGUI(SellerGUI sellGUI, UMain main) {
         this.main=main;
@@ -39,6 +42,7 @@ public class UpdateProductGUI extends JFrame implements ActionListener{
         constraints.insets = new Insets(10, 0, 0, 10);
         constraints.gridx = 1;
         constraints.gridy = 0;
+        idField.setEditable(false);
         panel.add(idField, constraints);
 
         // Label y TextField para Name
@@ -65,6 +69,7 @@ public class UpdateProductGUI extends JFrame implements ActionListener{
         constraints.insets = new Insets(10, 0, 0, 10);
         constraints.gridx = 1;
         constraints.gridy = 2;
+        priceField.setEditable(false);
         panel.add(priceField, constraints);
 
         // Label y TextField para Stock
@@ -75,17 +80,20 @@ public class UpdateProductGUI extends JFrame implements ActionListener{
         panel.add(stockLabel, constraints);
 
         SpinnerModel stockModel = new SpinnerNumberModel(0, 0, Integer.MAX_VALUE, 1);
-        JSpinner stockSpinner = new JSpinner(stockModel);
+        stockSpinner = new JSpinner(stockModel);
         JComponent editor = stockSpinner.getEditor();
-        JFormattedTextField spinnerTextField = ((JSpinner.DefaultEditor) editor).getTextField();
+        spinnerTextField = ((JSpinner.DefaultEditor) editor).getTextField();
         spinnerTextField.setColumns(1); 
         constraints.insets = new Insets(10, 0, 0, 10);       
         constraints.gridx = 1;
         constraints.gridy = 3;
+        spinnerTextField.setEditable(false);
+        stockSpinner.setEnabled(false);
+
         panel.add(stockSpinner, constraints);
 
         // Botones para crear el producto y volver atrás
-        JButton actionsButton = new JButton("Actualizar");
+        actionsButton = new JButton("Buscar");
         constraints.gridx = 0;
         constraints.gridy = 4;
         constraints.insets = new Insets(20, 10, 10, 10);
@@ -124,6 +132,31 @@ public class UpdateProductGUI extends JFrame implements ActionListener{
         
         if (command.equals("Atrás")) {
             this.dispose();
+        } 
+         if (command.equals("Buscar")) {
+            String[][] s= main.getProductsByName(nameField.getText());
+            if(s.length==0){
+                JOptionPane.showMessageDialog(this, "Item not Found", "Error", JOptionPane.INFORMATION_MESSAGE);
+            }else{
+                nameField.setEditable(false);
+                idField.setText(s[0][0]);
+                priceField.setText(s[0][2]);
+                priceField.setEditable(true);
+                spinnerTextField.setEditable(true);
+                stockSpinner.setEnabled(true);
+                spinnerTextField.setText(s[0][3]);
+                actionsButton.setActionCommand("Actualizar");
+                actionsButton.setText("Actualizar");
+            }
+        }  
+        if (command.equals("Actualizar")) {
+            if(main.updateProduct(Integer.valueOf(idField.getText()),Double.valueOf(priceField.getText()),Integer.valueOf(spinnerTextField.getText()))){
+                sellGUI.updateTable();
+                JOptionPane.showMessageDialog(this, "Product updated successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                this.dispose();
+            }else{                
+                JOptionPane.showMessageDialog(this, "Error", "Error", JOptionPane.INFORMATION_MESSAGE);
+            }
         }
     }
 }

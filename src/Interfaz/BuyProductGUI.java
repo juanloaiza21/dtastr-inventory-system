@@ -12,6 +12,10 @@ public class BuyProductGUI extends JFrame implements ActionListener{
     private JTextField idField;
     private UMain main;
     private UserGUI useGUI;
+    private JSpinner quantSpinner;
+    private JFormattedTextField spinnerTextField;
+    private JButton actionsButton;
+    private SpinnerNumberModel quantModel;
 
     public BuyProductGUI(UserGUI useGUI, UMain main) {
         this.main=main;
@@ -39,6 +43,7 @@ public class BuyProductGUI extends JFrame implements ActionListener{
         constraints.insets = new Insets(10, 0, 0, 10);
         constraints.gridx = 1;
         constraints.gridy = 0;
+        idField.setEditable(false);
         panel.add(idField, constraints);
 
         // Label y TextField para Name
@@ -65,6 +70,7 @@ public class BuyProductGUI extends JFrame implements ActionListener{
         constraints.insets = new Insets(10, 0, 0, 10);
         constraints.gridx = 1;
         constraints.gridy = 2;
+        priceField.setEditable(false);
         panel.add(priceField, constraints);
 
         // Label y TextField para Stock
@@ -74,18 +80,22 @@ public class BuyProductGUI extends JFrame implements ActionListener{
         constraints.gridy = 3;
         panel.add(quantLabel, constraints);
 
-        SpinnerModel quantModel = new SpinnerNumberModel(0, 0, Integer.MAX_VALUE, 1);
-        JSpinner quantSpinner = new JSpinner(quantModel);
+        quantModel = new SpinnerNumberModel(1, 1, Integer.MAX_VALUE, 1);
+         quantSpinner = new JSpinner(quantModel);
         JComponent editor = quantSpinner.getEditor();
-        JFormattedTextField spinnerTextField = ((JSpinner.DefaultEditor) editor).getTextField();
+         spinnerTextField = ((JSpinner.DefaultEditor) editor).getTextField();
         spinnerTextField.setColumns(1); 
         constraints.insets = new Insets(10, 0, 0, 10);       
         constraints.gridx = 1;
         constraints.gridy = 3;
+        spinnerTextField.setEditable(false);
+        quantSpinner.setEnabled(false);
+        
+        spinnerTextField.setText("1");
         panel.add(quantSpinner, constraints);
 
         // Botones para crear el producto y volver atrás
-        JButton actionsButton = new JButton("Buy");
+        actionsButton = new JButton("Buscar");
         constraints.gridx = 0;
         constraints.gridy = 4;
         constraints.insets = new Insets(20, 10, 10, 10);
@@ -121,9 +131,45 @@ public class BuyProductGUI extends JFrame implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
+        String[][] s=null;
         
         if (command.equals("Atrás")) {
             this.dispose();
+        } 
+         if (command.equals("Buscar")) {
+            s = main.getProductsByName(nameField.getText());
+            if(s.length==0){
+                JOptionPane.showMessageDialog(this, "Item not Found", "Error", JOptionPane.INFORMATION_MESSAGE);
+            }else{
+                nameField.setEditable(false);
+                idField.setText(s[0][0]);
+                priceField.setText(s[0][2]);
+                quantModel.setMaximum(Integer.valueOf(s[0][3]));
+                spinnerTextField.setEditable(true);
+                quantSpinner.setEnabled(true);
+
+                actionsButton.setActionCommand("Calcular precio");
+                actionsButton.setText("Calcular precio");
+            }
+        }  
+        if (command.equals("Calcular precio")) {
+            s = main.getProductsByName(nameField.getText());
+            priceField.setText(Double.toString(Double.valueOf(s[0][2])*Integer.valueOf(spinnerTextField.getText())));
+            
+            spinnerTextField.setEditable(false);
+            quantSpinner.setEnabled(false);
+            actionsButton.setActionCommand("Buy");
+            actionsButton.setText("Buy");
+        }
+
+        if (command.equals("Buy")) {
+            if(main.buyProduct(Integer.valueOf(idField.getText()),Integer.valueOf(spinnerTextField.getText()))){
+                useGUI.updateTable();
+                JOptionPane.showMessageDialog(this, "Product updated successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                this.dispose();
+            }else{                
+                JOptionPane.showMessageDialog(this, "Error", "Error", JOptionPane.INFORMATION_MESSAGE);
+            }
         }
     }
 }
