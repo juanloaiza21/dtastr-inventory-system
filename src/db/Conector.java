@@ -25,10 +25,9 @@ public class Conector implements Query {
      * @param password password on the db, default is author one
      */
     public Conector(String url, String username, String password) {
-        // TODO configurar como variables de entorno
-        this.url = url;// "jdbc:mysql://localhost:3306/DTAPROYECT";
-        this.username = username; // "root";
-        this.password = password; // "PCTdkx58";
+        this.url = "jdbc:mysql://localhost:3306/DTAPROYECT";
+        this.username = "root";
+        this.password = "PCTdkx58";
         table = "USERS";
     }
 

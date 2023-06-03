@@ -1,4 +1,4 @@
-package interfaz;
+package Interfaz;
 
 import java.awt.*;
 import java.awt.event.*;
