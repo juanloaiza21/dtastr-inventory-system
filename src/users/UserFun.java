@@ -82,7 +82,7 @@ public class UserFun extends UsersFunctions {
     }
 
     @Override
-    public void createUser(String[] data) {
+    public Boolean createUser(String[] data) {
         try {
             if(!validatorId(data)) throw new IllegalStateException("The id must be an integer, example: '1'");
             if(!roleValidator(data[4])) throw new IllegalStateException("The role must be 'SELLER' or 'USER'");
@@ -93,8 +93,10 @@ public class UserFun extends UsersFunctions {
             conector.connect();
             conector.insert(user, createFields);
             conector.close();
+            return true;
         } catch (Exception e) {
             System.err.println(e.getMessage());
+            return false;
         }
     }
 

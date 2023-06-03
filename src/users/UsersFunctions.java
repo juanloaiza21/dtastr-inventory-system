@@ -108,9 +108,10 @@ public abstract class UsersFunctions {
     /**
      * Convert data to LinkedList and the insert it on db
      * @param data String[]. The data you want to insert.
+     * @return 
      * @implNote The first element of the array must be an integer on string
      */
-    public void createUser(String[] data){}
+    public abstract Boolean createUser(String[] data);
 
     /**
      * Convert data to LinkedList and the update it on db

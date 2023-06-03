@@ -35,14 +35,16 @@ public class SellItems {
      * @param amount
      * @return ItemA
      */
-    public ItemA selling(int id, int amount) {
+   
+     public Boolean selling(int id, int amount) {
             try {
+                
                 ItemA itemToSell = item.getItem(id);
                 if (itemToSell != null) {
                     if (itemToSell.getStock() >= amount) {
                         itemToSell.setStock(itemToSell.getStock() - amount);
                         updateStock(itemToSell);
-                        return itemToSell;
+                        return true;
                     } else {
                         throw new LimitExceededException("There are not enough stock! ");
                     }
@@ -51,8 +53,8 @@ public class SellItems {
                 }
             } catch (InputMismatchException | SQLException | LimitExceededException e) {
                 System.err.println(e.getMessage());
+                return false;
             }
-            return null;
     }
 
     private void updateStock(ItemA itemToSell) throws SQLException {

@@ -1,7 +1,6 @@
 package item;
 
 import java.sql.SQLException;
-import java.util.LinkedList;
 
 /**
  * @author Juan Loaiza
@@ -12,48 +11,48 @@ public interface mainInterface {
     /**
      * Add a prduct trought console
      */
-    void addProduct(String name) throws SQLException;
+    public Boolean addProduct(String name, double price, int stock ,String user) throws SQLException;
     /**
      * Update stock trought console
      */
-    ItemA updateProductStock(int id, int stock);
+    Boolean updateProductStock(int id, int stock);
 
     /**
      * Update price trought console
      */
-    ItemA updateProductPrice(int id, int price);
+    Boolean updateProductPrice(int id, double price);
 
     /**
      * Delete product
      * @param id
      */
-    ItemA deleteProduct(int id);
+    Boolean deleteProduct(int id);
 
-    ItemA sellItem(int id, int amount);
+    Boolean sellItem(int id, int amount);
 
-    ItemA devolution(int id, int amount);
+    Boolean devolution(int id, int amount);
 
-    void productAsk(String name) throws SQLException;
+    Boolean productAsk(String name) throws SQLException;
 
-    void productAsked() throws SQLException;
+    String[][] productAsked() throws SQLException;
 
-    ItemA getitemByName(String name);
+    String[][] getitemByName(String name);
 
-    ItemA getItemByStock(int stock);
+    String[][] getItemByStock(int stock);
 
-    ItemA getItemByPrice(double price);
+    String[][] getItemByPrice(double price);
 
-    LinkedList<ItemA> itemBynameLess(String seller);
+    String[][] itemBynameLess(String seller);
 
-    LinkedList<ItemA> getItemByStockLess(int stock);
+    String[][] getItemByStockLess(int stock);
 
-    LinkedList<ItemA> getItemByPriceLess(double price);
+    String[][] getItemByPriceLess(double price);
 
-    ItemA itemBynameGreater(String name);
+    String[][] itemBynameGreater(String name);
 
-    ItemA getItemByPriceGreater(double price);
+    String[][] getItemByPriceGreater(double price);
 
-    ItemA getItemByStockGreater(int stock);
+    String[][] getItemByStockGreater(int stock);
 
 
 }

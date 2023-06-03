@@ -67,4 +67,5 @@ public class ItemA {
     public void setStock(int stock) {
         this.stock = stock;
     }
+
 }

@@ -26,9 +26,9 @@ public class AskProducts {
         conector.setTable("ASKPRODUCTS");
         seller = name;
         item = new Item();
-    }
+    } 
 
-    public Item Asking(String name) throws SQLException {
+    public Boolean Asking(String name) throws SQLException {
         Queue<Item> data = new LinkedList<>();
         Boolean controller = true;
 
@@ -40,13 +40,16 @@ public class AskProducts {
 
             } catch (InputMismatchException | SQLException e) {
                 System.err.println(e.getMessage());
+                return false;
             }
+            return true;
+            
         }
 
         if (!data.isEmpty()) {
-            return data.poll();
+            return true;
         } else {
-            return null; // Devuelve null si no se agregó ningún elemento a la cola
+            return false; // Devuelve null si no se agregó ningún elemento a la cola
         }
     }
 

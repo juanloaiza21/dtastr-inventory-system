@@ -21,7 +21,7 @@ public class Devolution {
      * @param amount
      * @return ItemA updated if return is null means somenthing went wrong
      */
-    public ItemA devolution(int id, int amount) {
+    public Boolean devolution(int id, int amount) {
             try {
                 Item it = new Item(0, null, 0, 0,"");
                 it.getItems();
@@ -29,14 +29,14 @@ public class Devolution {
                 if (itemToReturn != null) {
                     itemToReturn.setStock(itemToReturn.getStock() + amount);
                     updateStock(itemToReturn);
-                    return itemToReturn;
+                    return true;
                 } else {
                     throw new InputMismatchException("The item does not exist! ");
             }
         } catch (InputMismatchException | SQLException e) {
             System.out.println(e.getMessage());
-        }
-        return null;   
+            return false;
+        }   
     }
 
     private void updateStock(ItemA itemToSell) throws SQLException {
