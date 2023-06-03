@@ -86,9 +86,9 @@ public class LoginGUI extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
         if (command.equals("Iniciar sesión")) {
-            //main.login(correoInput.getText(),new String(contrasenaInput.getPassword()));
+            main.login(correoInput.getText(),new String(contrasenaInput.getPassword()));
             //main.login("usuario3@example.com","qwerty123");
-            main.login("usuario1@example.com","password123");
+            //main.login("usuario1@example.com","password123");
             if(main.getLogged()){
                 JOptionPane.showMessageDialog(this, "Login succesfull.", "Success", JOptionPane.INFORMATION_MESSAGE);
                 main.startlog(main.getEmail());

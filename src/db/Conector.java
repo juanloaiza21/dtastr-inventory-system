@@ -28,7 +28,7 @@ public class Conector implements Query {
         // TODO configurar como variables de entorno
         this.url = url;// "jdbc:mysql://localhost:3306/DTAPROYECT";
         this.username = username; // "root";
-        this.password = "Harutora13*"; // "PCTdkx58";
+        this.password = password; // "PCTdkx58";
         table = "USERS";
     }
 
